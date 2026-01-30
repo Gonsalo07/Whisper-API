@@ -54,6 +54,10 @@ Thumbs.db
 /mvnw.cmd
 /mvnw
 
+# Eclipse workspace (MUY IMPORTANTE)
+.metadata/
+
+
 # ─── Node/npm (si frontend va en monorepo) ────
 /node_modules/
 
