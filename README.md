@@ -1,2 +1,2 @@
 # Whisper-API
-La API es un servicio backend RESTful que actúa como núcleo de la plataforma de denuncias anónimas colaborativas, proporcionando los endpoints necesarios para la gestión de denuncias, validaciones comunitarias, comentarios anónimos y cálculo de credibilidad, garantizando seguridad, anonimato y escalabilidad.
+The API is a RESTful backend service that acts as the core of the collaborative anonymous reporting platform, providing the necessary endpoints for reporting management, community validations, anonymous feedback and credibility calculation, ensuring security, anonymity and scalability.
