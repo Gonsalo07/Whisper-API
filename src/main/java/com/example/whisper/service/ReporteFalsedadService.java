@@ -1,9 +1,6 @@
 package com.example.whisper.service;
 
-
-import com.example.whisper.entity.EvidenciaFalsedad;
 import com.example.whisper.entity.ReporteFalsedad;
-import com.example.whisper.repository.IEvidenciaFalsedadRepository;
 import com.example.whisper.repository.IReporteFalsedadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
