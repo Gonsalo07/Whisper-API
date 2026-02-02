@@ -1,0 +1,169 @@
+-- ======================================================
+-- SCRIPT DE INICIALIZACIÓN COMPLETA: WHISPER
+-- ======================================================
+
+-- 1. REINICIO DE LA BASE DE DATOS
+DROP DATABASE IF EXISTS Whisper;
+CREATE DATABASE Whisper CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE Whisper;
+
+-- =========================================
+-- 1. USUARIOS (PRIVADO)
+-- =========================================
+CREATE TABLE usuarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    estado VARCHAR(20) DEFAULT 'ACTIVO',
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 2. ALIAS PÚBLICOS
+-- =========================================
+CREATE TABLE alias_publicos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    alias VARCHAR(50) NOT NULL UNIQUE,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_alias_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 3. CATEGORÍAS
+-- =========================================
+CREATE TABLE categorias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion TEXT
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 4. DENUNCIAS (CORE)
+-- =========================================
+CREATE TABLE denuncias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    alias_id BIGINT NOT NULL,
+    categoria_id BIGINT NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado VARCHAR(20) DEFAULT 'EN_EVALUACION',
+    creada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_denuncia_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id),
+
+    CONSTRAINT fk_denuncia_alias
+        FOREIGN KEY (alias_id)
+        REFERENCES alias_publicos(id),
+
+    CONSTRAINT fk_denuncia_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categorias(id)
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 5. EVIDENCIAS
+-- =========================================
+CREATE TABLE evidencias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    denuncia_id BIGINT NOT NULL,
+    url TEXT NOT NULL,
+    tipo VARCHAR(20),
+    creada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_evidencia_denuncia
+        FOREIGN KEY (denuncia_id)
+        REFERENCES denuncias(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 6. VOTOS DE DENUNCIAS (3 ESTADOS)
+-- =========================================
+CREATE TABLE votos_denuncia (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    denuncia_id BIGINT NOT NULL,
+    usuario_id BIGINT NOT NULL,
+    voto TINYINT NOT NULL, 
+    -- 1 = CONSISTENTE, 0 = EN_EVALUACION, -1 = CUESTIONADA
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_voto_denuncia
+        FOREIGN KEY (denuncia_id)
+        REFERENCES denuncias(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_voto_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT unico_voto
+        UNIQUE (denuncia_id, usuario_id)
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 7. COMENTARIOS
+-- =========================================
+CREATE TABLE comentarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    denuncia_id BIGINT NOT NULL,
+    alias_id BIGINT NOT NULL,
+    contenido TEXT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_comentario_denuncia
+        FOREIGN KEY (denuncia_id)
+        REFERENCES denuncias(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_comentario_alias
+        FOREIGN KEY (alias_id)
+        REFERENCES alias_publicos(id)
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 8. REPORTES DE FALSEDAD
+-- =========================================
+CREATE TABLE reportes_falsedad (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    denuncia_id BIGINT NOT NULL,
+    usuario_id BIGINT NOT NULL,
+    motivo TEXT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_falsedad_denuncia
+        FOREIGN KEY (denuncia_id)
+        REFERENCES denuncias(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_falsedad_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+) ENGINE=InnoDB;
+
+-- =========================================
+-- 9. EVIDENCIA DE REPORTES
+-- =========================================
+CREATE TABLE evidencias_falsedad (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    reporte_id BIGINT NOT NULL,
+    url TEXT NOT NULL,
+    tipo VARCHAR(20),
+    creada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_evidencia_reporte
+        FOREIGN KEY (reporte_id)
+        REFERENCES reportes_falsedad(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- =========================================
+-- FIN DEL SCRIPT
+-- =========================================

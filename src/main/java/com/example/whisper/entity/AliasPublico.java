@@ -13,7 +13,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Table(name = "alias_publicos")
 public class AliasPublico {
 

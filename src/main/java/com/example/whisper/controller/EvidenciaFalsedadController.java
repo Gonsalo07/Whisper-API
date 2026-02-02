@@ -1,8 +1,6 @@
 package com.example.whisper.controller;
 
-import com.example.whisper.entity.Comentario;
 import com.example.whisper.entity.EvidenciaFalsedad;
-import com.example.whisper.service.ComentarioService;
 import com.example.whisper.service.EvidenciaFalsedadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
