@@ -6,32 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-@Table(name = "tbl_evidencias")
+@Table(name = "tbl_evidencia")
 public class Evidencia {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long evidencia_id;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private Denuncia denuncia;
+    @JoinColumn(name = "denuncia_id", nullable = false)
+    private Denuncia denunciaId;
 
-    @Column(name = "archivoUrl")
-    private String archivoUrl;
+    @Column(name = "url")
+    private String url;
 
-    @Column(name = "tipoArchivo")
-    private String tipoArchivo;
+    @Column(name = "tipo")
+    private String tipo;
 
-    @Column(name = "fechaSubida")
-    private LocalDateTime fechaSubida;
-
+    @Column(name = "creado_en")
+    private Date creadoEn;
 }

@@ -14,20 +14,26 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Table(name = "alias_publicos")
-public class AliasPublico {
+@Table(name = "tbl_usuario")
+public class Usuario {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuarioId;
+    @Column(unique = true, nullable = false)
+    private String email;
 
-    @Column(name = "alias")
-    private String alias;
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
+
+    @Column(name="estado")
+    private String estado;
 
     @Column(name = "creado_en")
     private Date creadoEn;
+
+
+
 }

@@ -13,20 +13,21 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-@Table(name = "alias_publicos")
-public class AliasPublico {
-
+@Table(name = "tbl_evidencia_falsedad")
+public class EvidenciaFalsedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuarioId;
+    @JoinColumn(name = "reporte_id", nullable = false)
+    private ReporteFalsedad reporteId;
 
-    @Column(name = "alias")
-    private String alias;
+    @Column(name = "url")
+    private String url;
+
+    @Column(name = "tipo")
+    private String tipo;
 
     @Column(name = "creado_en")
     private Date creadoEn;
