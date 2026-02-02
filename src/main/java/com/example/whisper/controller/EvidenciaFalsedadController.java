@@ -20,20 +20,20 @@ public class EvidenciaFalsedadController {
 
     @GetMapping
     public ResponseEntity<List<EvidenciaFalsedad>> listarTodos() {
-        List<EvidenciaFalsedad> evidencia = evidenciaFalsedadService.listarTodos();
-        if (evidencia.isEmpty()) {
+        List<EvidenciaFalsedad> envidencias = evidenciaFalsedadService.listarTodos();
+        if (envidencias.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(evidencia);
+        return ResponseEntity.ok(envidencias);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EvidenciaFalsedad> obtenerPorId(@PathVariable Long id) {
-        EvidenciaFalsedad evidencia = evidenciaFalsedadService.obtenerporId(id);
-        if (evidencia == null) {
+        EvidenciaFalsedad evidencias = evidenciaFalsedadService.obtenerporId(id);
+        if (evidencias == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(evidencia);
+        return ResponseEntity.ok(evidencias);
     }
 
     @PostMapping

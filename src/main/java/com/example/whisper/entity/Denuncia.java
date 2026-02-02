@@ -20,6 +20,9 @@ public class Denuncia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne()
+    @JoinColumn(name = "usuario_id",  nullable = false)
+    private Usuario usuarioId;
 
     @ManyToOne()
     @JoinColumn(name = "usuario_id",  nullable = false)
