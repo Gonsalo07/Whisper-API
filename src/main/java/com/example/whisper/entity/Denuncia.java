@@ -20,13 +20,17 @@ public class Denuncia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne()
+    @JoinColumn(name = "usuario_id",  nullable = false)
+    private Usuario usuarioId;
 
     @ManyToOne()
     @JoinColumn(name = "usuario_id",  nullable = false)
     private Usuario usuarioId;
 
-    @Column(name = "alias_id")
-    private int aliasId;
+    @ManyToOne()
+    @JoinColumn(name = "alias_id",  nullable = false)
+    private AliasPublico aliasId;
 
     @ManyToOne()
     @JoinColumn(name = "categoria_id",  nullable = false)
