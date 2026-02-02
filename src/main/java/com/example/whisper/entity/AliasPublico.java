@@ -1,0 +1,33 @@
+package com.example.whisper.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "tbl_alias_publico")
+
+public class AliasPublico {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuarioId;
+
+    @Column(name = "alias")
+    private String alias;
+
+    @Column(name = "creado_en")
+    private Date creadoEn;
+}
