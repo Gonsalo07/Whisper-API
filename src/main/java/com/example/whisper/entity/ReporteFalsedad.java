@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tbl_reporte_falsedad")
+@Table(name = "reportes_falsedad")
 
 public class ReporteFalsedad {
 

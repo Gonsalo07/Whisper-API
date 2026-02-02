@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tbl_alias_publico")
+@Table(name = "alias_publicos")
 
 public class AliasPublico {
 

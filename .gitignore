@@ -1,7 +1,8 @@
 # ─── Build output ─────────────────────────────
 /target/
 build/
-
+# Permitir explícitamente la carpeta de base de datos
+!database/*.sql
 # ─── Spring Boot local config ─────────────────
 /src/main/resources/application-local.properties
 

@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tbl_comentario")
+@Table(name = "comentarios")
 
 public class Comentario {
 
