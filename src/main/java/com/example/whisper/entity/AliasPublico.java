@@ -14,7 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "alias_publicos")
-
 public class AliasPublico {
 
     @Id
