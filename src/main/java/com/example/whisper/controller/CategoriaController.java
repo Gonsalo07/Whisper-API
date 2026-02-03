@@ -20,6 +20,14 @@ public class CategoriaController {
         if(listaCategoria.isEmpty())
             return ResponseEntity.noContent().build();
         else return ResponseEntity.ok().body(listaCategoria);
-
     }
+
+     @GetMapping("/{id}")
+    public ResponseEntity<?> listarPorId(@PathVariable Long id)
+     {
+        Categoria categoria = categoriaService.listarPorId(id);
+        if(categoria == null)
+            return ResponseEntity.notFound().build();
+        else return ResponseEntity.ok().body(categoria);
+     }
 }
