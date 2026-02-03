@@ -20,8 +20,18 @@ public class ICategoriaService implements CategoriaService {
     }
 
     @Override
+    public Categoria listarPorId(Long id) {
+        return categoriaRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Categoria crear(Categoria categoria) {
         return categoriaRepository.save(categoria);
+    }
+
+    @Override
+    public Categoria actualizar(Categoria categoria) {
+        return null;
     }
 
     @Override
