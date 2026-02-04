@@ -17,17 +17,6 @@
 
     padding: 2vw;
     font-family: "Roboto", sans-serif;
-
-    > .message {
-      width: 100%;
-      padding: 0.5vw;
-      border: 1px solid red;
-      background-color: rgb(117, 0, 0);
-      border-radius: 0.3vw;
-      color: #fff;
-      font-size: 0.9em;
-    }
-
     > .group-title {
       display: flex;
       flex-direction: column;
@@ -55,6 +44,7 @@
         border: 1px solid #dee2e6;
         display: flex;
         border-radius: 0.2vw;
+        transition: border-color 0.5s ease;
 
         > .icon {
           width: 2vw;
@@ -93,6 +83,26 @@
           border: none;
           background: none;
         }
+
+        &:hover {
+          border: 1px solid #9fa3a7;
+        }
+      }
+
+      .message {
+        color: rgb(168, 11, 11);
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+    }
+
+    > .group-input-check {
+      width: 100%;
+      display: flex;
+      gap: 0.5vw;
+
+      > label {
+        font-size: 0.9em;
       }
     }
 
@@ -110,11 +120,20 @@
       border-radius: 0.2vw;
       color: #fff;
       font-size: 1vw;
+      transition:
+        transform 0.5s,
+        background-color 0.5s ease;
+
+      &:hover {
+        transform: scale(0.98);
+        background-color: rgb(9, 58, 133);
+      }
     }
 
     > .redirect_auth {
       font-size: 0.7vw;
       font-weight: 350;
+      cursor: pointer;
       > span {
         color: #397ec2;
       }

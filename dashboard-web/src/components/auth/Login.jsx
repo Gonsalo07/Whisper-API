@@ -1,47 +1,84 @@
-const Login = () => {
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+const Login = ({ setView }) => {
+  const [showPass, setShowPass] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
+
   return (
-    <section className="form">
+    <form className="form" onSubmit={onSubmit}>
       <article className="group-title">
-        <h3 className="title">Portal Denuncias Anonimas</h3>
+        <h3 className="title">Denuncias Anonimas | Login</h3>
         <h4 className="description">Porfavor ingresa los datos de tu cuenta</h4>
       </article>
-
-      <p className="message">
-        Hubo un error en los datos, porfavor revisalo....
-      </p>
-
       <article className="group-input">
-        <label>Usuario:</label>
+        <label>Email:</label>
         <div className="input-box">
           <div className="icon">
-            <i class="fa-solid fa-user"></i>
+            <i className="fa-solid fa-user"></i>
           </div>
-          <input type="text" placeholder="Ingresa tu nombre de usuario ..." />
+          <input
+            type="text"
+            placeholder="Ingresa tu correo electronico ..."
+            {...register("email", {
+              required: {
+                value: true,
+                message: "Debes ingresar un correo electronico ...",
+              },
+              pattern: {
+                value:
+                  /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/,
+                message: "El correo electronico no es valido",
+              },
+            })}
+          />
         </div>
+        {errors.email && (
+          <span className="message">{errors.email.message}</span>
+        )}
       </article>
-
       <article className="group-input">
         <label>Contraseña:</label>
         <div className="input-box">
           <div className="icon">
-            <i class="fa-solid fa-lock"></i>
+            <i className="fa-solid fa-lock"></i>
           </div>
-          <input type="password" placeholder="Ingresa tu  contraseña ..." />
-          <div className="showPass">
-            <i class="fa-solid fa-eye"></i>
+          <input
+            type={showPass ? "text" : "password"}
+            placeholder="Ingresa tu  contraseña ..."
+            {...register("password", {
+              required: {
+                value: true,
+                message: "La contraseña es requerida",
+              },
+            })}
+          />
+          <div onClick={() => setShowPass(!showPass)} className="showPass">
+            <i
+              className={showPass ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}
+            ></i>
           </div>
         </div>
+        {errors.password && (
+          <span className="message">{errors.password.message}</span>
+        )}
       </article>
-
-      <button>
-        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+      <button type="submit">
+        <i className="fa-solid fa-arrow-right-to-bracket"></i>
         Iniciar Sesión
       </button>
-
-      <p className="redirect_auth">
+      <p onClick={() => setView(1)} className="redirect_auth">
         No tienes una cuenta? <span>Registrate Aqui</span>
       </p>
-    </section>
+    </form>
   );
 };
 
