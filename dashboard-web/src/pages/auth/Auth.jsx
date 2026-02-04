@@ -6,14 +6,18 @@ import Register from "../../components/auth/Register.jsx";
 const Auth = () => {
   const [type, setType] = useState(0);
 
+  const handleView = (view) => {
+    setType(view);
+  };
+
   const renderAuth = () => {
     switch (type) {
       case 0:
-        return <Login />;
+        return <Login setView={handleView} />;
       case 1:
-        return <Register />;
+        return <Register setView={handleView} />;
       default:
-        return <Login />;
+        return <Login setView={handleView} />;
     }
   };
 
