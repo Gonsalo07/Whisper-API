@@ -9,7 +9,7 @@ function App() {
         <Route path="/" element={<Navigate to="/auth" replace />} />{" "}
         {/* Esto es temporal por ahora  */}
         <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/  " element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
