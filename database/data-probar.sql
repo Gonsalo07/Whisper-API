@@ -5,13 +5,13 @@
 USE Whisper;
 
 -- 1. USUARIOS
-INSERT INTO usuarios (email, password_hash, rol, estado) VALUES
-('juan.perez@email.com', '$2b$12$eImiTXuWVpY0K.9vshSDF','USUARIO', 'ACTIVO'),
-('maria.garcia@email.com', '$2b$12$v98vshSDFkLp02nSlpY1X','USUARIO', 'ACTIVO'),
-('admin@whisper.com', '$2b$12$Z0mP4ks92MnBvCxZasQ1W','USUARIO', 'ACTIVO'),
-('carlos.ruiz@email.com', '$2b$12$Lks02nSlpQwErTyUiO54Z','USUARIO', 'ACTIVO'),
-('ana.lopez@email.com', '$2b$12$MnBvCxZas88XcVbNmK99L','USUARIO', 'ACTIVO'),
-('luis.torres@email.com', '$2b$12$QwErTyUiOpAAsDfGhjKl2', 'ADMINISTRADOR','INACTIVO');
+INSERT INTO usuarios (email, password, rol, estado) VALUES
+('juan.perez@email.com', '$2b$12$.9vshSDF','USUARIO', 'ACTIVO'),
+('maria.garcia@email.com', '$2b$12$','USUARIO', 'ACTIVO'),
+('admin@whisper.com', '$2b$12$','USUARIO', 'ACTIVO'),
+('carlos.ruiz@email.com', '$2b$12$','USUARIO', 'ACTIVO'),
+('ana.lopez@email.com', '$2b$12$','USUARIO', 'ACTIVO'),
+('luis.torres@email.com', '$2b$12$', 'ADMINISTRADOR','INACTIVO');
 
 -- 2. ALIAS PÚBLICOS
 INSERT INTO alias_publicos (usuario_id, alias) VALUES
