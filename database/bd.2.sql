@@ -1,10 +1,10 @@
--- ======================================================
--- SCRIPT DE INICIALIZACIÓN COMPLETA: WHISPER
--- ======================================================
+-- =========================================
+-- BASE DE DATOS
+-- =========================================
+CREATE DATABASE IF NOT EXISTS Whisper
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
 
--- 1. REINICIO DE LA BASE DE DATOS
-DROP DATABASE IF EXISTS Whisper;
-CREATE DATABASE Whisper CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE Whisper;
 
 -- =========================================
@@ -13,9 +13,10 @@ USE Whisper;
 CREATE TABLE usuarios (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(150) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    rol VARCHAR(20) NOT NULL DEFAULT 'USUARIO',
     estado VARCHAR(20) DEFAULT 'ACTIVO',
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    CONSTRAINT chk_rol CHECK (rol IN ('USUARIO', 'ADMINISTRADOR'))
 ) ENGINE=InnoDB;
 
 -- =========================================
