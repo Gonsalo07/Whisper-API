@@ -37,15 +37,19 @@ public class UsuarioService {
         }
 
         usuarioExistente.setEmail(usuarioActualizado.getEmail());
-        usuarioExistente.setPasswordHash(usuarioActualizado.getPasswordHash());
+        usuarioExistente.setPassword(usuarioActualizado.getPassword());
         usuarioExistente.setEstado(usuarioActualizado.getEstado());
-        usuarioExistente.setCreadoEn(usuarioActualizado.getCreadoEn());
+        usuarioExistente.setRol(usuarioActualizado.getRol());
 
         return usuarioRepository.save(usuarioExistente);
     }
 
     public void eliminarUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+        Usuario usuario = usuarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        usuario.setEstado("INACTIVO");
+        
+        usuarioRepository.save(usuario);
     }
 
     public boolean existePorEmail(String email) {

@@ -13,7 +13,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Table(name = "usuarios")
 public class Usuario {
 
@@ -25,14 +24,14 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "password", nullable = false)
+    private String password;
+    
+    @Column(name="rol")
+    private String rol;
 
     @Column(name="estado")
     private String estado;
-
-    @Column(name = "creado_en")
-    private Date creadoEn;
 
 
 
