@@ -1,4 +1,3 @@
-import { Label } from 'src/components/label';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -38,6 +37,16 @@ export const navData = [
     path: '/blog',
     icon: icon('ic-blog'),
   },
+    {
+  title: 'Comentarios',
+  path: '/comentario',
+  icon: icon('ic-blog'),
+  },
+    {
+  title: 'Evidencias Falsas',
+  path: '/evidencia-falsedad',
+  icon: icon('ic-blog'),
+  },
   {
     title: 'Ingresar',
     path: '/sign-in',
@@ -48,4 +57,5 @@ export const navData = [
     path: '/404',
     icon: icon('ic-disabled'),
   },
+
 ];

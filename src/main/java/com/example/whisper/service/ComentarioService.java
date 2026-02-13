@@ -38,6 +38,10 @@ public class ComentarioService {
         return repoComentario.save(comentarioExistente);
     }
 
+    public void eliminarComentario(Long id) {
+        repoComentario.deleteById(id);
+    }
+
 
 
 }

@@ -11,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reporte-falsedad")
+@CrossOrigin(origins = "http://localhost:3039")
+
 public class ReporteFalsedadController {
     
     @Autowired
@@ -54,6 +56,16 @@ public class ReporteFalsedadController {
             return ResponseEntity.ok(reporteActualizado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        try {
+            reporteFalsedadService.eliminarReporFalsedad(id);
+            return ResponseEntity.noContent().build(); // 204 correcto para delete
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build(); // si no existe
         }
     }
     

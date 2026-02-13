@@ -11,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/evidencia-falsedad")
+@CrossOrigin(origins = "http://localhost:3039")
+
 public class EvidenciaFalsedadController {
 
     @Autowired
@@ -54,6 +56,16 @@ public class EvidenciaFalsedadController {
             return ResponseEntity.ok(evidenciaActualizado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        try {
+            evidenciaFalsedadService.eliminarEviFalsedad(id);
+            return ResponseEntity.noContent().build(); // 204 correcto para delete
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build(); // si no existe
         }
     }
     

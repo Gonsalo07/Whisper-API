@@ -1,5 +1,6 @@
 package com.example.whisper.controller;
 
+import com.example.whisper.entity.AliasPublico;
 import com.example.whisper.entity.Comentario;
 import com.example.whisper.service.ComentarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/comentarios")
+@CrossOrigin(origins = "http://localhost:3039")
 public class ComentarioController {
     @Autowired
     private ComentarioService comentarioService;
@@ -55,4 +57,18 @@ public class ComentarioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        try {
+            comentarioService.eliminarComentario(id);
+            return ResponseEntity.noContent().build(); // 204 correcto para delete
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build(); // si no existe
+        }
+    }
+
+
+
+
 }
