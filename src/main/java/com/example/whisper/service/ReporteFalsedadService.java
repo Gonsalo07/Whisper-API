@@ -33,6 +33,8 @@ public class ReporteFalsedadService {
         }
 
         reporteExistente.setMotivo(reporteActualizado.getMotivo());
+        reporteExistente.setCreadoEn(reporteActualizado.getCreadoEn());
+
 
         return repoReporFalsedad.save(reporteExistente);
     }

@@ -10,6 +10,7 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
+
 // ----------------------------------------------------------------------
 
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
@@ -19,6 +20,8 @@ export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ComentarioPage = lazy(() => import('src/pages/comentario'));
 export const EvidenciaFalsedadPage = lazy(() => import('src/pages/evidencia-falsedad'));
+export const ReporteFalsedadPage = lazy(() => import('src/pages/reporte-falsedad'));
+
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 
@@ -57,6 +60,7 @@ export const routesSection: RouteObject[] = [
       { path: 'products', element: <ProductsPage /> },
       { path: 'comentario', element: <ComentarioPage /> },
       { path: 'evidencia-falsedad', element: <EvidenciaFalsedadPage /> },
+      { path: 'reporte-falsedad', element: <ReporteFalsedadPage /> },
       { path: 'blog', element: <BlogPage /> },
      
 
