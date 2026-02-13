@@ -1,12 +1,13 @@
 package com.example.whisper.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -30,5 +31,6 @@ public class EvidenciaFalsedad {
     private String tipo;
 
     @Column(name = "creado_en")
-    private Date creadoEn;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate creadoEn;
 }

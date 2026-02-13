@@ -47,6 +47,11 @@ export const navData = [
   path: '/evidencia-falsedad',
   icon: icon('ic-blog'),
   },
+      {
+  title: 'Reportes Falsos',
+  path: '/reporte-falsedad',
+  icon: icon('ic-blog'),
+  },
   {
     title: 'Ingresar',
     path: '/sign-in',

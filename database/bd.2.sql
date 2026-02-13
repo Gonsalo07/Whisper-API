@@ -1,3 +1,5 @@
+
+
 -- =========================================
 -- BASE DE DATOS
 -- =========================================
@@ -117,7 +119,7 @@ CREATE TABLE comentarios (
     denuncia_id BIGINT NOT NULL,
     alias_id BIGINT NOT NULL,
     contenido TEXT NOT NULL,
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    creado_en DATE,
 
     CONSTRAINT fk_comentario_denuncia
         FOREIGN KEY (denuncia_id)
@@ -137,7 +139,7 @@ CREATE TABLE reportes_falsedad (
     denuncia_id BIGINT NOT NULL,
     usuario_id BIGINT NOT NULL,
     motivo TEXT NOT NULL,
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    creado_en date,
 
     CONSTRAINT fk_falsedad_denuncia
         FOREIGN KEY (denuncia_id)
@@ -157,7 +159,7 @@ CREATE TABLE evidencias_falsedad (
     reporte_id BIGINT NOT NULL,
     url TEXT NOT NULL,
     tipo VARCHAR(20),
-    creada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    creada_en DATE,
 
     CONSTRAINT fk_evidencia_reporte
         FOREIGN KEY (reporte_id)

@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
-const TIPOS = ['imagen', 'video', 'documento'];
+const TIPOS = ['IMAGEN', 'VIDEO', 'DOCUMENTO'];
 
 type Props = {
   open: boolean;
@@ -38,13 +38,21 @@ export function EvidenciaFalsedadDialog({
   const [reporteId, setReporteId] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  // 🔥 Cargar datos al abrir el dialog
   useEffect(() => {
     if (!open) return;
 
     if (mode === 'edit' && evidencia) {
       setTipo(evidencia.tipo ?? '');
       setUrl(evidencia.url ?? '');
-      setCreadoEn(evidencia.creadoEn ?? '');
+
+      // ✔ Soporta "yyyy-MM-dd" y "yyyy-MM-ddTHH:mm:ss"
+      const fechaLimpia = evidencia.creadoEn
+        ? evidencia.creadoEn.split('T')[0]
+        : '';
+
+      setCreadoEn(fechaLimpia);
+
       setReporteId(evidencia.reporteId?.id?.toString() ?? '');
     } else {
       setTipo('');
@@ -76,7 +84,7 @@ export function EvidenciaFalsedadDialog({
       await onSave({
         tipo,
         url,
-        creadoEn,
+        creadoEn, // ✔ enviar directo como "yyyy-MM-dd"
         reporteId: reporteId ? Number(reporteId) : undefined,
       });
     } catch {

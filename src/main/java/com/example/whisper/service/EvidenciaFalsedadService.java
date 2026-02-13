@@ -36,6 +36,8 @@ public class EvidenciaFalsedadService {
 
         evidenciaExistente.setUrl(evidenciaActualizada.getUrl());
         evidenciaExistente.setTipo(evidenciaActualizada.getTipo());
+        evidenciaExistente.setCreadoEn(evidenciaActualizada.getCreadoEn());
+
 
         return repoEviFalsedad.save(evidenciaExistente);
     }
