@@ -37,6 +37,11 @@ public class ReporteFalsedadService {
         return repoReporFalsedad.save(reporteExistente);
     }
 
+    public void eliminarReporFalsedad(Long id) {
+        repoReporFalsedad.deleteById(id);
+    }
+
+
 
 
 }

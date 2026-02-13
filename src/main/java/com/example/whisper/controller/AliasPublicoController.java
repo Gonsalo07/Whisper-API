@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alias")
+@CrossOrigin(origins = "http://localhost:3039")
+
 public class AliasPublicoController {
 
     @Autowired
