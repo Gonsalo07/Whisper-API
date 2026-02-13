@@ -17,9 +17,12 @@ export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
+export const ComentarioPage = lazy(() => import('src/pages/comentario'));
+export const EvidenciaFalsedadPage = lazy(() => import('src/pages/evidencia-falsedad'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 // Busca donde están los otros y agrega este:
 export const AliasPublicosPage = lazy(() => import('src/pages/alias-publicos'));
+
 
 const renderFallback = () => (
   <Box
@@ -54,6 +57,8 @@ export const routesSection: RouteObject[] = [
       { index: true, element: <DashboardPage /> },
       { path: 'user', element: <UserPage /> },
       { path: 'products', element: <ProductsPage /> },
+      { path: 'comentario', element: <ComentarioPage /> },
+      { path: 'evidencia-falsedad', element: <EvidenciaFalsedadPage /> },
       { path: 'blog', element: <BlogPage /> },
       { path: 'alias-publicos', element: <AliasPublicosPage /> },
     ],

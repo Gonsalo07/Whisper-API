@@ -38,6 +38,11 @@ public class EvidenciaFalsedadService {
         evidenciaExistente.setTipo(evidenciaActualizada.getTipo());
 
         return repoEviFalsedad.save(evidenciaExistente);
-    }   
+    }
+
+    public void eliminarEviFalsedad(Long id) {
+        repoEviFalsedad.deleteById(id);
+    }
+
 
 }
