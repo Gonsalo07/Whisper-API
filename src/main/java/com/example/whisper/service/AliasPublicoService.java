@@ -10,5 +10,6 @@ public interface AliasPublicoService {
     AliasPublico guardar (AliasPublico alias);
     AliasPublico buscarPorId (Long id);
     void delete(AliasPublico alias);
+    List<AliasPublico> buscarPorAlias(String nombre);
 
 }

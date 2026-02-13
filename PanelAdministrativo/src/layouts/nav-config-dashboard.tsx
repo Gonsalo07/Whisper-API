@@ -34,8 +34,8 @@ export const navData = [
   },
   {
     title: 'Alias Publicos',
-    path: '/blog',
-    icon: icon('ic-blog'),
+    path: '/alias-publicos',
+    icon: icon('ic-user'),
   },
     {
   title: 'Comentarios',
