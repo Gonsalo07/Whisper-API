@@ -52,6 +52,7 @@ CREATE TABLE denuncias (
     alias_id BIGINT NOT NULL,
     categoria_id BIGINT NOT NULL,
     descripcion TEXT NOT NULL,
+    titulo VARCHAR(50) NOT NULL,
     estado VARCHAR(20) DEFAULT 'EN_EVALUACION',
     creada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

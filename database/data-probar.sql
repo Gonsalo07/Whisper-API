@@ -31,6 +31,7 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Seguridad Vial', 'Infracciones graves de tránsito o peligro en vías.'),
 ('Servicios Públicos', 'Fallas constantes o mala atención en servicios básicos.');
 
+<<<<<<< Updated upstream
 -- 4. DENUNCIAS
 INSERT INTO denuncias (usuario_id, alias_id, categoria_id, descripcion, estado) VALUES
 (1, 1, 1, 'Soborno detectado en la oficina de licencias del centro.', 'EN_EVALUACION'),
@@ -39,6 +40,18 @@ INSERT INTO denuncias (usuario_id, alias_id, categoria_id, descripcion, estado) 
 (5, 5, 4, 'Acoso sistemático reportado en la estación de bus central.', 'INVESTIGANDO'),
 (6, 6, 5, 'Semáforo dañado provoca accidentes en Av. Principal con Calle 10.', 'SOLUCIONADO'),
 (1, 1, 6, 'Corte de agua sin previo aviso por más de 48 horas en Barrio Norte.', 'ACTIVA');
+=======
+-- 4. DENUNCIAS (distribuidas en los últimos 6 meses)
+INSERT INTO denuncias (usuario_id, alias_id, categoria_id, descripcion, titulo,estado, creada_en) VALUES
+(1, 1, 1, 'Sobrecostos detectados en contratos municipales durante el ultimo trimestre.','ADMINISTRACIÓN MONETARIA', 'EN_EVALUACION', '2024-11-15 10:00:00'),
+(2, 2, 4, 'Posibles irregularidades en proceso de licitacion publica regional.','CORRUPCION REGIONAL',           'EN_EVALUACION', '2024-12-18 11:00:00'),
+(3, 3, 3, 'No se publicaron documentos completos en el portal oficial de transparencia.','DOCUMENTOS MANCHADOS',  'CONSISTENTE',   '2025-01-20 12:00:00'),
+(4, 4, 2, 'Funcionario ejerce presion indebida sobre subordinados en area de logistica.','DEPOTISMO',  'EN_EVALUACION', '2025-02-22 13:00:00'),
+(5, 5, 5, 'Existe relacion familiar directa en adjudicacion de contrato por S/. 500,000.','FAMILIAS EN CONFLICTO','CUESTIONADA',   '2025-03-25 14:00:00'),
+(1, 1, 1, 'Nueva evidencia de desvio presupuestal en el area administrativa central.','ROBO DE DINERO',     'EN_EVALUACION', '2025-04-28 15:00:00'),
+(2, 2, 2, 'Directivo utiliza vehiculo institucional para fines personales.','CORRUCPCIÓN AL VOLANTE',               'EN_EVALUACION', '2025-05-10 09:00:00'),
+(3, 3, 4, 'Contrato adjudicado sin proceso de licitacion reglamentario.','REGLAMENTO IMPUESTO',                  'CONSISTENTE',   '2025-06-15 10:00:00');
+>>>>>>> Stashed changes
 
 -- 5. EVIDENCIAS
 INSERT INTO evidencias (denuncia_id, url, tipo) VALUES

@@ -1,5 +1,6 @@
 package com.example.whisper.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +31,9 @@ public class Evidencia {
     private String tipo;
 
     @Column(name = "creado_en")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date creadoEn;
+
+    @Column(name = "estado")
+    private String estado;  // ← NUEVO: VISIBLE / OCULTO
 }

@@ -25,7 +25,12 @@ export const navData = [
   },
   {
     title: 'Denuncias',
-    path: '/products',
+    path: '/denuncia',
+    icon: icon('ic-cart'),
+  },
+  {
+    title: 'Evidencias',
+    path: '/evidencia',
     icon: icon('ic-cart'),
   },
   {
@@ -35,7 +40,26 @@ export const navData = [
   },
   {
     title: 'Alias Publicos',
+<<<<<<< Updated upstream
     path: '/blog',
+=======
+    path: '/alias-publicos',
+    icon: icon('ic-user'),
+  },
+  {
+    title: 'Comentarios',
+    path: '/comentario',
+    icon: icon('ic-blog'),
+  },
+  {
+    title: 'Evidencias Falsas',
+    path: '/evidencia-falsedad',
+    icon: icon('ic-blog'),
+  },
+  {
+    title: 'Reportes Falsos',
+    path: '/reporte-falsedad',
+>>>>>>> Stashed changes
     icon: icon('ic-blog'),
   },
   {
