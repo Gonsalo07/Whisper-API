@@ -2,6 +2,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 
+import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 
 export type ReporteFalsedadRow = {
@@ -10,6 +11,7 @@ export type ReporteFalsedadRow = {
   usuarioId: string;
   motivo: string;
   creadoEn: string;
+  estado: string;
 };
 
 type Props = {
@@ -21,12 +23,17 @@ type Props = {
 export function ReporteFalsedadTableRow({ row, onEdit, onDelete }: Props) {
   return (
     <TableRow hover>
-      <TableCell>{row.id}</TableCell>
-      <TableCell>{row.denunciaId}</TableCell>
-      <TableCell>{row.usuarioId}</TableCell>
+      {/* El orden de las celdas debe coincidir EXACTAMENTE con headLabel en la vista */}
+      <TableCell align="center">{row.id}</TableCell>
+      <TableCell align="center">{row.denunciaId}</TableCell>
+      <TableCell align="center">{row.usuarioId}</TableCell>
       <TableCell>{row.motivo}</TableCell>
-      <TableCell>{row.creadoEn}</TableCell>
-
+      <TableCell align="center">{row.creadoEn}</TableCell>
+      <TableCell align="center">
+        <Label color={row.estado === 'VISIBLE' ? 'success' : 'error'}>
+          {row.estado}
+        </Label>
+      </TableCell>
       <TableCell align="right">
         <IconButton onClick={onEdit}>
           <Iconify icon="solar:pen-bold" />

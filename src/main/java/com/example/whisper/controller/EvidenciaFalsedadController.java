@@ -12,35 +12,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/evidencia-falsedad")
 @CrossOrigin(origins = "http://localhost:3039")
-
 public class EvidenciaFalsedadController {
 
     @Autowired
-    private EvidenciaFalsedadService evidenciaFalsedadService;
+    private EvidenciaFalsedadService evidenciaService;
 
     @GetMapping
-    public ResponseEntity<List<EvidenciaFalsedad>> listarTodos() {
-        List<EvidenciaFalsedad> envidencias = evidenciaFalsedadService.listarTodos();
-        if (envidencias.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(envidencias);
+    public ResponseEntity<List<EvidenciaFalsedad>> listarTodas() {
+        List<EvidenciaFalsedad> evidencias = evidenciaService.listarTodas();
+        if (evidencias.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(evidencias);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EvidenciaFalsedad> obtenerPorId(@PathVariable Long id) {
-        EvidenciaFalsedad evidencias = evidenciaFalsedadService.obtenerporId(id);
-        if (evidencias == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(evidencias);
+        EvidenciaFalsedad evidencia = evidenciaService.obtenerPorId(id);
+        if (evidencia == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(evidencia);
     }
 
     @PostMapping
-    public ResponseEntity<EvidenciaFalsedad> agregarevidencia(@RequestBody EvidenciaFalsedad evidencia) {
+    public ResponseEntity<EvidenciaFalsedad> crearEvidencia(@RequestBody EvidenciaFalsedad evidencia) {
         try {
-            EvidenciaFalsedad nuevo = evidenciaFalsedadService.agregarEvidencia(evidencia);
-            return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+            EvidenciaFalsedad nueva = evidenciaService.crearEvidencia(evidencia);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -49,24 +44,24 @@ public class EvidenciaFalsedadController {
     @PutMapping("/{id}")
     public ResponseEntity<EvidenciaFalsedad> actualizarEvidencia(@PathVariable Long id, @RequestBody EvidenciaFalsedad evidencia) {
         try {
-            EvidenciaFalsedad evidenciaActualizado = evidenciaFalsedadService.actualizarEvidencia(id, evidencia);
-            if (evidenciaActualizado == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(evidenciaActualizado);
+            EvidenciaFalsedad actualizada = evidenciaService.actualizarEvidencia(id, evidencia);
+            if (actualizada == null) return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(actualizada);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    // DELETE ahora oculta en lugar de borrar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> ocultarEvidencia(@PathVariable Long id) {
         try {
-            evidenciaFalsedadService.eliminarEviFalsedad(id);
-            return ResponseEntity.noContent().build(); // 204 correcto para delete
+            EvidenciaFalsedad evidencia = evidenciaService.obtenerPorId(id);
+            if (evidencia == null) return ResponseEntity.notFound().build();
+            evidenciaService.ocultarEvidencia(id);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            return ResponseEntity.notFound().build(); // si no existe
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
 }

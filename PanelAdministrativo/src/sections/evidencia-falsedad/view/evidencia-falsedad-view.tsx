@@ -55,7 +55,6 @@ export function EvidenciaFalsedadView() {
     setSnackbar({ open: true, message, severity });
   }, []);
 
-  // 🔹 Cargar desde backend
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
@@ -66,14 +65,14 @@ export function EvidenciaFalsedadView() {
         reporteId: e.reporteId?.id?.toString() ?? '—',
         url: e.url ?? '—',
         tipo: e.tipo ?? '—',
-        creadoEn: e.creadoEn
-  ? new Date(e.creadoEn).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    })
-  : '',
-
+        creadoEn: e.creadaEn
+          ? new Date(e.creadaEn).toLocaleDateString('es-PE', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })
+          : '—',
+        estado: e.estado ?? 'VISIBLE',  // ← nuevo
       }));
 
       setRows(mapped);
@@ -89,13 +88,11 @@ export function EvidenciaFalsedadView() {
     loadData();
   }, [loadData]);
 
-  // 🔹 Crear / Editar
   const handleSave = useCallback(
     async (data: {
       reporteId?: number;
-      url?: string;
+      url: string;
       tipo: string;
-      creadoEn: string;
     }) => {
       try {
         if (dialogMode === 'create') {
@@ -103,14 +100,13 @@ export function EvidenciaFalsedadView() {
             reporteId: { id: data.reporteId! },
             url: data.url,
             tipo: data.tipo,
-            creadoEn: data.creadoEn,
+            // creadaEn lo pone el TIMESTAMP de la BD automáticamente
           });
           showSnackbar('Evidencia creada', 'success');
         } else if (selected?.id) {
           await updateEvidencia(selected.id, {
             url: data.url,
             tipo: data.tipo,
-            creadoEn: data.creadoEn,
           });
           showSnackbar('Evidencia actualizada', 'success');
         }
@@ -125,16 +121,13 @@ export function EvidenciaFalsedadView() {
     [dialogMode, selected, loadData, showSnackbar, table]
   );
 
-  // 🔹 Editar
   const handleEdit = useCallback(
     async (id: string) => {
       const full = await fetchEvidenciaById(Number(id));
       if (!full) {
-  showSnackbar('No encontrada', 'error');
-  return;
-}
-
-
+        showSnackbar('No encontrada', 'error');
+        return;
+      }
       setSelected(full);
       setDialogMode('edit');
       setDialogOpen(true);
@@ -142,32 +135,25 @@ export function EvidenciaFalsedadView() {
     [showSnackbar]
   );
 
-  // 🔹 Eliminar uno
   const handleDeleteOne = useCallback(
     async (id: string) => {
-      if (!window.confirm('¿Eliminar evidencia?')) return;
-
+      if (!window.confirm('¿Ocultar esta evidencia?')) return;
       await deleteEvidencia(Number(id));
-      showSnackbar('Eliminada', 'success');
+      showSnackbar('Evidencia ocultada', 'success');
       await loadData();
     },
     [loadData, showSnackbar]
   );
 
-  // 🔹 Eliminar múltiples
   const handleDeleteMany = useCallback(async () => {
     if (!table.selected.length) return;
-
-    if (!window.confirm('¿Eliminar seleccionadas?')) return;
-
+    if (!window.confirm('¿Ocultar las evidencias seleccionadas?')) return;
     await Promise.all(table.selected.map((id) => deleteEvidencia(Number(id))));
-    showSnackbar('Eliminadas', 'success');
-
+    showSnackbar('Evidencias ocultadas', 'success');
     table.onSelectAllRows(false, []);
     await loadData();
   }, [table, loadData, showSnackbar]);
 
-  // 🔹 Filtrado
   const dataFiltered = rows
     .filter((r) => (filterName ? r.tipo.toLowerCase().includes(filterName.toLowerCase()) : true))
     .sort(getComparator(table.order, table.orderBy));
@@ -225,10 +211,11 @@ export function EvidenciaFalsedadView() {
                 }
                 headLabel={[
                   { id: 'id', label: 'ID' },
-                  { id: 'reporteId', label: 'Tipo' },
+                  { id: 'reporteId', label: 'Reporte ID' },
                   { id: 'url', label: 'URL' },
-                  { id: 'tipo', label: 'ReporteID' },
+                  { id: 'tipo', label: 'Tipo' },
                   { id: 'creadoEn', label: 'Fecha' },
+                  { id: 'estado', label: 'Estado' },
                 ]}
               />
 

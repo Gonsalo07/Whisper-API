@@ -71,6 +71,7 @@
           denunciaId: c.denunciaId?.id?.toString() ?? '—',
           aliasId: c.aliasId?.id?.toString() ?? '—',
           creadoEn: c.creadoEn ?? '',
+estado: c.estado ?? 'VISIBLE',  // ← agregar esta línea
         }));
 
         setComentarios(mapped);
@@ -236,6 +237,7 @@
                     { id: 'denunciaId', label: 'Denuncia', align: 'center' },
                     { id: 'aliasId', label: 'Alias', align: 'center' },
                     { id: 'creadoEn', label: 'Creado En', align: 'center' },
+{ id: 'estado', label: 'Estado', align: 'center' },  // ← agregar esta línea
                   ]}
                 />
                 <TableBody>

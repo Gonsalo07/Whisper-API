@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Table(name = "evidencias_falsedad")
 public class EvidenciaFalsedad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +31,10 @@ public class EvidenciaFalsedad {
     @Column(name = "tipo")
     private String tipo;
 
-    @Column(name = "creado_en")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate creadoEn;
+    @Column(name = "creada_en")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime creadaEn;  // ← LocalDateTime + nombre creadaEn
+
+    @Column(name = "estado")
+    private String estado;
 }

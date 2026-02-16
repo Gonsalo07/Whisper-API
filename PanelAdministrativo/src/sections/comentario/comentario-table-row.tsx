@@ -10,6 +10,7 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 
+import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -20,6 +21,7 @@ export type ComentarioProps = {
   denunciaId: string;
   aliasId: string;
   creadoEn: string;
+  estado: string;  // ← nuevo
 };
 
 type ComentarioTableRowProps = {
@@ -30,13 +32,7 @@ type ComentarioTableRowProps = {
   onDelete?: () => void;
 };
 
-export function ComentarioTableRow({
-  row,
-  selected,
-  onSelectRow,
-  onEdit,
-  onDelete,
-}: ComentarioTableRowProps) {
+export function ComentarioTableRow({ row, selected, onSelectRow, onEdit, onDelete }: ComentarioTableRowProps) {
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
 
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
@@ -66,7 +62,6 @@ export function ComentarioTableRow({
 
         <TableCell align="center">{row.id}</TableCell>
 
-        {/* Truncamos el contenido largo para que no rompa la tabla */}
         <TableCell>
           {row.contenido.length > 80
             ? `${row.contenido.substring(0, 80)}...`
@@ -75,10 +70,16 @@ export function ComentarioTableRow({
 
         <TableCell align="center">{row.denunciaId}</TableCell>
         <TableCell align="center">{row.aliasId}</TableCell>
+
         <TableCell align="center">
-          {row.creadoEn
-            ? new Date(row.creadoEn).toLocaleDateString('es-PE')
-            : '—'}
+          {row.creadoEn ? new Date(row.creadoEn).toLocaleDateString('es-PE') : '—'}
+        </TableCell>
+
+        {/* Estado igual que en usuarios */}
+        <TableCell align="center">
+          <Label color={row.estado === 'VISIBLE' ? 'success' : 'error'}>
+            {row.estado}
+          </Label>
         </TableCell>
 
         <TableCell align="center">
@@ -117,7 +118,7 @@ export function ComentarioTableRow({
           </MenuItem>
           <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Eliminar
+            Ocultar
           </MenuItem>
         </MenuList>
       </Popover>

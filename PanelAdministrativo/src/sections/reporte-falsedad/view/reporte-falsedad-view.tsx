@@ -35,21 +35,31 @@ export function ReporteFalsedadView() {
   const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
   const [selected, setSelected] = useState<any>(null);
 
-  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success' as 'success' | 'error',
+  });
 
   const showSnackbar = (message: string, severity: 'success' | 'error') =>
     setSnackbar({ open: true, message, severity });
 
   const loadData = useCallback(async () => {
     const data = await fetchReportes();
-
     setRows(
       data.map((r) => ({
         id: r.id!.toString(),
         denunciaId: r.denunciaId?.id?.toString() ?? '—',
         usuarioId: r.usuarioId?.id?.toString() ?? '—',
-        motivo: r.motivo ?? '',
-        creadoEn: r.creadoEn ?? '',
+        motivo: r.motivo ?? '—',
+        creadoEn: r.creadoEn
+          ? new Date(r.creadoEn).toLocaleDateString('es-PE', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })
+          : '—',
+        estado: r.estado ?? 'VISIBLE',
       }))
     );
   }, []);
@@ -58,22 +68,29 @@ export function ReporteFalsedadView() {
     loadData();
   }, [loadData]);
 
-  const handleSave = async (data: any) => {
-    if (dialogMode === 'create') {
-      await createReporte({
-        denunciaId: { id: data.denunciaId },
-        usuarioId: { id: data.usuarioId },
-        motivo: data.motivo,
-        creadoEn: data.creadoEn,
-      });
-      showSnackbar('Creado', 'success');
-    } else {
-      await updateReporte(selected.id, { motivo: data.motivo, creadoEn: data.creadoEn });
-      showSnackbar('Actualizado', 'success');
+  const handleSave = async (data: {
+    denunciaId?: number;
+    usuarioId?: number;
+    motivo: string;
+  }) => {
+    try {
+      if (dialogMode === 'create') {
+        await createReporte({
+          denunciaId: { id: data.denunciaId! },
+          usuarioId: { id: data.usuarioId! },
+          motivo: data.motivo,
+        });
+        showSnackbar('Reporte creado', 'success');
+      } else {
+        await updateReporte(selected.id, { motivo: data.motivo });
+        showSnackbar('Reporte actualizado', 'success');
+      }
+      setDialogOpen(false);
+      loadData();
+    } catch (err) {
+      showSnackbar(err instanceof Error ? err.message : 'Error al guardar', 'error');
+      throw err;
     }
-
-    setDialogOpen(false);
-    loadData();
   };
 
   const handleEdit = async (id: string) => {
@@ -83,10 +100,12 @@ export function ReporteFalsedadView() {
     setDialogOpen(true);
   };
 
+  // Cambia estado a OCULTO pero sigue apareciendo en la tabla
   const handleDelete = async (id: string) => {
+    if (!window.confirm('¿Ocultar este reporte?')) return;
     await deleteReporte(Number(id));
-    showSnackbar('Eliminado', 'success');
-    loadData();
+    showSnackbar('Reporte ocultado', 'success');
+    loadData(); // recarga — ahora aparecerá con estado OCULTO en rojo
   };
 
   return (
@@ -113,6 +132,7 @@ export function ReporteFalsedadView() {
         <Scrollbar>
           <TableContainer>
             <Table>
+              {/* headLabel debe tener el MISMO orden que las celdas en table-row */}
               <UserTableHead
                 order={table.order}
                 orderBy={table.orderBy}
@@ -121,11 +141,12 @@ export function ReporteFalsedadView() {
                 onSort={table.onSort}
                 onSelectAllRows={() => {}}
                 headLabel={[
-                  { id: 'id', label: 'ID' },
-                  { id: 'denunciaId', label: 'Denuncia' },
-                  { id: 'usuarioId', label: 'Usuario' },
-                  { id: 'motivo', label: 'Motivo' },
-                  { id: 'creadoEn', label: 'Fecha' },
+                  { id: 'id',         label: 'ID',       align: 'center' },
+                  { id: 'denunciaId', label: 'Denuncia', align: 'center' },
+                  { id: 'usuarioId',  label: 'Usuario',  align: 'center' },
+                  { id: 'motivo',     label: 'Motivo'                    },
+                  { id: 'creadoEn',   label: 'Fecha',    align: 'center' },
+                  { id: 'estado',     label: 'Estado',   align: 'center' },
                 ]}
               />
 
@@ -152,7 +173,11 @@ export function ReporteFalsedadView() {
         onSave={handleSave}
       />
 
-      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar((p) => ({ ...p, open: false }))}>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setSnackbar((p) => ({ ...p, open: false }))}
+      >
         <Alert severity={snackbar.severity} variant="filled">
           {snackbar.message}
         </Alert>
