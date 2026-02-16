@@ -1,50 +1,48 @@
 package com.example.whisper.service;
 
-
-
 import com.example.whisper.entity.EvidenciaFalsedad;
 import com.example.whisper.repository.IEvidenciaFalsedadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class EvidenciaFalsedadService {
 
     @Autowired
-    private IEvidenciaFalsedadRepository repoEviFalsedad;
+    private IEvidenciaFalsedadRepository repoEvidencia;
 
-    public List<EvidenciaFalsedad> listarTodos(){
-        return repoEviFalsedad.findAll();
+    // Lista todas — VISIBLE y OCULTO — para que el admin vea el estado
+    public List<EvidenciaFalsedad> listarTodas() {
+        return repoEvidencia.findAll();
     }
 
-    public EvidenciaFalsedad obtenerporId(Long id){
-        return repoEviFalsedad.findById(id).orElse(null);
+    public EvidenciaFalsedad obtenerPorId(Long id) {
+        return repoEvidencia.findById(id).orElse(null);
     }
 
-    public EvidenciaFalsedad agregarEvidencia(EvidenciaFalsedad evidenciaFalsedad){
-        return repoEviFalsedad.save(evidenciaFalsedad);
+    public EvidenciaFalsedad crearEvidencia(EvidenciaFalsedad evidencia) {
+        evidencia.setEstado("VISIBLE");
+        evidencia.setCreadaEn(LocalDateTime.now()); // ← fecha automática
+        return repoEvidencia.save(evidencia);
     }
 
     public EvidenciaFalsedad actualizarEvidencia(Long id, EvidenciaFalsedad evidenciaActualizada) {
-        EvidenciaFalsedad evidenciaExistente = repoEviFalsedad.findById(id).orElse(null);
-
-        if (evidenciaExistente == null) {
-            return null;
-        }
+        EvidenciaFalsedad evidenciaExistente = repoEvidencia.findById(id).orElse(null);
+        if (evidenciaExistente == null) return null;
 
         evidenciaExistente.setUrl(evidenciaActualizada.getUrl());
         evidenciaExistente.setTipo(evidenciaActualizada.getTipo());
-        evidenciaExistente.setCreadoEn(evidenciaActualizada.getCreadoEn());
-
-
-        return repoEviFalsedad.save(evidenciaExistente);
+        return repoEvidencia.save(evidenciaExistente);
     }
 
-    public void eliminarEviFalsedad(Long id) {
-        repoEviFalsedad.deleteById(id);
+    // "Eliminar" = cambiar estado a OCULTO
+    public void ocultarEvidencia(Long id) {
+        EvidenciaFalsedad evidencia = repoEvidencia.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evidencia no encontrada"));
+        evidencia.setEstado("OCULTO");
+        repoEvidencia.save(evidencia);
     }
-
-
 }

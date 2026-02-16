@@ -8,10 +8,11 @@ const API_BASE_URL = 'http://localhost:9090/api/comentarios';
 
 export type Comentario = {
   id?: number;
-  denunciaId?: { id: number };   // relación ManyToOne → Denuncia
-  aliasId?: { id: number };      // relación ManyToOne → AliasPublico
+  denunciaId?: { id: number };
+  aliasId?: { id: number };
   contenido: string;
-  creadoEn?: string;             // Date viene como string ISO desde Spring
+  creadoEn?: string;
+  estado?: string;   // ← agregar esta línea
 };
 
 export type ComentarioCreate = {
