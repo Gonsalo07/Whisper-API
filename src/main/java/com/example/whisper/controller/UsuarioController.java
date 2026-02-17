@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -24,6 +27,27 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(usuarios);
+    }
+
+    /**
+     * Endpoint para obtener usuarios en formato simplificado para dropdowns
+     * Retorna: [{ id: 1, label: "usuario@email.com" }, ...]
+     */
+    @GetMapping("/dropdown")
+    public ResponseEntity<List<Map<String, Object>>> listarParaDropdown() {
+        List<Usuario> usuarios = usuarioService.listarTodos();
+
+        List<Map<String, Object>> resultado = usuarios.stream()
+                .map(u -> {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("id", u.getId());
+                    item.put("label", u.getEmail());
+                    return item;
+                })
+                .collect(Collectors.toList());
+
+        if (resultado.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(resultado);
     }
 
     @GetMapping("/{id}")

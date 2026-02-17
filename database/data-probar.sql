@@ -29,15 +29,15 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Conflicto de interes', 'Relaciones que afectan imparcialidad');
 
 -- 4. DENUNCIAS (distribuidas en los últimos 6 meses)
-INSERT INTO denuncias (usuario_id, alias_id, categoria_id, descripcion, estado, creada_en) VALUES
-(1, 1, 1, 'Sobrecostos detectados en contratos municipales durante el ultimo trimestre.', 'EN_EVALUACION', '2024-11-15 10:00:00'),
-(2, 2, 4, 'Posibles irregularidades en proceso de licitacion publica regional.',           'EN_EVALUACION', '2024-12-18 11:00:00'),
-(3, 3, 3, 'No se publicaron documentos completos en el portal oficial de transparencia.',  'CONSISTENTE',   '2025-01-20 12:00:00'),
-(4, 4, 2, 'Funcionario ejerce presion indebida sobre subordinados en area de logistica.',  'EN_EVALUACION', '2025-02-22 13:00:00'),
-(5, 5, 5, 'Existe relacion familiar directa en adjudicacion de contrato por S/. 500,000.','CUESTIONADA',   '2025-03-25 14:00:00'),
-(1, 1, 1, 'Nueva evidencia de desvio presupuestal en el area administrativa central.',     'EN_EVALUACION', '2025-04-28 15:00:00'),
-(2, 2, 2, 'Directivo utiliza vehiculo institucional para fines personales.',               'EN_EVALUACION', '2025-05-10 09:00:00'),
-(3, 3, 4, 'Contrato adjudicado sin proceso de licitacion reglamentario.',                  'CONSISTENTE',   '2025-06-15 10:00:00');
+INSERT INTO denuncias (usuario_id, alias_id, categoria_id, descripcion, titulo,estado, creada_en) VALUES
+(1, 1, 1, 'Sobrecostos detectados en contratos municipales durante el ultimo trimestre.','ADMINISTRACIÓN MONETARIA', 'EN_EVALUACION', '2024-11-15 10:00:00'),
+(2, 2, 4, 'Posibles irregularidades en proceso de licitacion publica regional.','CORRUPCION REGIONAL',           'EN_EVALUACION', '2024-12-18 11:00:00'),
+(3, 3, 3, 'No se publicaron documentos completos en el portal oficial de transparencia.','DOCUMENTOS MANCHADOS',  'CONSISTENTE',   '2025-01-20 12:00:00'),
+(4, 4, 2, 'Funcionario ejerce presion indebida sobre subordinados en area de logistica.','DEPOTISMO',  'EN_EVALUACION', '2025-02-22 13:00:00'),
+(5, 5, 5, 'Existe relacion familiar directa en adjudicacion de contrato por S/. 500,000.','FAMILIAS EN CONFLICTO','CUESTIONADA',   '2025-03-25 14:00:00'),
+(1, 1, 1, 'Nueva evidencia de desvio presupuestal en el area administrativa central.','ROBO DE DINERO',     'EN_EVALUACION', '2025-04-28 15:00:00'),
+(2, 2, 2, 'Directivo utiliza vehiculo institucional para fines personales.','CORRUCPCIÓN AL VOLANTE',               'EN_EVALUACION', '2025-05-10 09:00:00'),
+(3, 3, 4, 'Contrato adjudicado sin proceso de licitacion reglamentario.','REGLAMENTO IMPUESTO',                  'CONSISTENTE',   '2025-06-15 10:00:00');
 
 -- 5. EVIDENCIAS
 INSERT INTO evidencias (denuncia_id, url, tipo, creada_en) VALUES
