@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-<<<<<<< Updated upstream
-@RequestMapping("/api/evidencias")
-=======
 @RequestMapping("/api/evidencia")
 @CrossOrigin(origins = "http://localhost:3039")
->>>>>>> Stashed changes
 public class EvidenciaController {
 
     @Autowired

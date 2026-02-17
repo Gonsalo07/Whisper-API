@@ -5,38 +5,43 @@ import com.example.whisper.repository.IReporteFalsedadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ReporteFalsedadService {
 
     @Autowired
-    private IReporteFalsedadRepository repoReporFalsedad;
+    private IReporteFalsedadRepository repoReporte;
 
-    public List<ReporteFalsedad> listarTodos(){
-        return repoReporFalsedad.findAll();
+    // Lista todos — VISIBLE y OCULTO — para que el admin vea el estado
+    public List<ReporteFalsedad> listarTodos() {
+        return repoReporte.findAll();
     }
 
-    public ReporteFalsedad obtenerporId(Long id){
-        return repoReporFalsedad.findById(id).orElse(null);
+    public ReporteFalsedad obtenerPorId(Long id) {
+        return repoReporte.findById(id).orElse(null);
     }
 
-    public ReporteFalsedad agregarReporte(ReporteFalsedad reporteFalsedad){
-        return repoReporFalsedad.save(reporteFalsedad);
+    public ReporteFalsedad crearReporte(ReporteFalsedad reporte) {
+        reporte.setEstado("VISIBLE");
+        reporte.setCreadoEn(LocalDateTime.now()); // ← fecha automática
+        return repoReporte.save(reporte);
     }
 
     public ReporteFalsedad actualizarReporte(Long id, ReporteFalsedad reporteActualizado) {
-        ReporteFalsedad reporteExistente = repoReporFalsedad.findById(id).orElse(null);
-
-        if (reporteExistente == null) {
-            return null;
-        }
+        ReporteFalsedad reporteExistente = repoReporte.findById(id).orElse(null);
+        if (reporteExistente == null) return null;
 
         reporteExistente.setMotivo(reporteActualizado.getMotivo());
-
-        return repoReporFalsedad.save(reporteExistente);
+        return repoReporte.save(reporteExistente);
     }
 
-
-
+    // "Eliminar" = cambiar estado a OCULTO
+    public void ocultarReporte(Long id) {
+        ReporteFalsedad reporte = repoReporte.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reporte no encontrado"));
+        reporte.setEstado("OCULTO");
+        repoReporte.save(reporte);
+    }
 }

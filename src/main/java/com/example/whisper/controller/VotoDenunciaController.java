@@ -11,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/votos-denuncia")
+@CrossOrigin(origins = "http://localhost:3039")
+
 public class VotoDenunciaController {
 
     @Autowired

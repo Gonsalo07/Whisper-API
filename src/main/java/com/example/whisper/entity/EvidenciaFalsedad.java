@@ -1,12 +1,13 @@
 package com.example.whisper.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -15,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Table(name = "evidencias_falsedad")
 public class EvidenciaFalsedad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +31,10 @@ public class EvidenciaFalsedad {
     @Column(name = "tipo")
     private String tipo;
 
-    @Column(name = "creado_en")
-    private Date creadoEn;
+    @Column(name = "creada_en")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime creadaEn;  // ← LocalDateTime + nombre creadaEn
+
+    @Column(name = "estado")
+    private String estado;
 }

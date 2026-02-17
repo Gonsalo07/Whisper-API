@@ -13,12 +13,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-<<<<<<< Updated upstream
-@RequestMapping("api/denuncias")
-=======
 @RequestMapping("/api/denuncia")
 @CrossOrigin(origins = "http://localhost:3039")
->>>>>>> Stashed changes
 public class DenunciaController {
 
     @Autowired

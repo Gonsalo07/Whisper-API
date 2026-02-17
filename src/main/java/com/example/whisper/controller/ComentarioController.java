@@ -11,25 +11,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/comentarios")
+@CrossOrigin(origins = "http://localhost:3039")
 public class ComentarioController {
+
     @Autowired
     private ComentarioService comentarioService;
 
     @GetMapping
     public ResponseEntity<List<Comentario>> listarTodos() {
         List<Comentario> comentarios = comentarioService.listarTodos();
-        if (comentarios.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
+        if (comentarios.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(comentarios);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Comentario> obtenerPorId(@PathVariable Long id) {
         Comentario comentario = comentarioService.obtenerporId(id);
-        if (comentario == null) {
-            return ResponseEntity.notFound().build();
-        }
+        if (comentario == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(comentario);
     }
 
@@ -46,11 +44,22 @@ public class ComentarioController {
     @PutMapping("/{id}")
     public ResponseEntity<Comentario> actualizarComentario(@PathVariable Long id, @RequestBody Comentario comentario) {
         try {
-            Comentario comentarioActualizado = comentarioService.actualizarComentario(id, comentario);
-            if (comentarioActualizado == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(comentarioActualizado);
+            Comentario actualizado = comentarioService.actualizarComentario(id, comentario);
+            if (actualizado == null) return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(actualizado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // DELETE ahora oculta en lugar de borrar
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> ocultarComentario(@PathVariable Long id) {
+        try {
+            Comentario comentario = comentarioService.obtenerporId(id);
+            if (comentario == null) return ResponseEntity.notFound().build();
+            comentarioService.ocultarComentario(id);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

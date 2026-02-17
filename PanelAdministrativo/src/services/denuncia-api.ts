@@ -1,5 +1,6 @@
 // src/services/denuncia-api.ts
 
+
 const API_BASE_URL = 'http://localhost:9090/api/denuncia';
 
 export type Denuncia = {
@@ -26,6 +27,9 @@ export type DenunciaUpdate = {
   titulo?: string;
   descripcion?: string;
   estado?: string;
+  descripcion: string;
+  estado?: string;
+  creadaEn?: string;
 };
 
 export async function fetchDenuncias(): Promise<Denuncia[]> {

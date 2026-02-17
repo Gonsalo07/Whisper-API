@@ -1,4 +1,3 @@
-import { Label } from 'src/components/label';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -40,9 +39,6 @@ export const navData = [
   },
   {
     title: 'Alias Publicos',
-<<<<<<< Updated upstream
-    path: '/blog',
-=======
     path: '/alias-publicos',
     icon: icon('ic-user'),
   },
@@ -59,7 +55,6 @@ export const navData = [
   {
     title: 'Reportes Falsos',
     path: '/reporte-falsedad',
->>>>>>> Stashed changes
     icon: icon('ic-blog'),
   },
   {
@@ -72,4 +67,5 @@ export const navData = [
     path: '/404',
     icon: icon('ic-disabled'),
   },
+
 ];
