@@ -27,8 +27,6 @@ export type DenunciaUpdate = {
   titulo?: string;
   descripcion?: string;
   estado?: string;
-  descripcion: string;
-  estado?: string;
   creadaEn?: string;
 };
 

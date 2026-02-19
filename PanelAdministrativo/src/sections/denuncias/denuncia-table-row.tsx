@@ -1,5 +1,7 @@
 // src/sections/denuncia/denuncia-table-row.tsx
 
+import { useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
@@ -11,7 +13,6 @@ import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
-import { useState } from 'react';
 
 export type DenunciaRow = {
   id: string;

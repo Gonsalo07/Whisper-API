@@ -24,7 +24,6 @@ export const EvidenciaPage = lazy(() => import('src/pages/evidencia'));
 export const DenunciaPage = lazy(() => import('src/pages/denuncias'));
 export const EvidenciaFalsedadPage = lazy(() => import('src/pages/evidencia-falsedad'));
 export const ReporteFalsedadPage = lazy(() => import('src/pages/reporte-falsedad'));
-export const Page404 = lazy(() => import('src/pages/page-not-found'));
 // Busca donde están los otros y agrega este:
 export const AliasPublicosPage = lazy(() => import('src/pages/alias-publicos'));
 
