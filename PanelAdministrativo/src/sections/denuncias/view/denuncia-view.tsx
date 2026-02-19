@@ -28,13 +28,13 @@ import {
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 
-import { TableNoData } from '../../user/table-no-data';
 import { useTable } from '../use-denuncia-table';
+import { DenunciaDialog } from '../denuncia-dialog';
+import { TableNoData } from '../../user/table-no-data';
 import { UserTableHead } from '../../user/user-table-head';
 import { emptyRows, getComparator } from '../../user/utils';
 import { TableEmptyRows } from '../../user/table-empty-rows';
 import { UserTableToolbar } from '../../user/user-table-toolbar';
-import { DenunciaDialog } from '../denuncia-dialog';
 import { DenunciaTableRow, type DenunciaRow } from '../denuncia-table-row';
 
 export function DenunciaView() {

@@ -33,11 +33,6 @@ export const navData = [
     icon: icon('ic-cart'),
   },
   {
-    title: 'Reportes de Falsos',
-    path: '/blog',
-    icon: icon('ic-blog'),
-  },
-  {
     title: 'Alias Publicos',
     path: '/alias-publicos',
     icon: icon('ic-user'),

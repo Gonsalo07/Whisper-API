@@ -27,6 +27,9 @@ public class Usuario {
     @Column(name = "password", nullable = false)
     private String password;
     
+    @Column(name="dni")
+    private String dni;
+    
     @Column(name="rol")
     private String rol;
 
