@@ -25,12 +25,12 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Servicios', 'Problemas con agua, luz o internet.');
 
 -- 4. DENUNCIAS
-INSERT INTO denuncias (usuario_id, alias_id, categoria_id, titulo, descripcion, estado) VALUES
-(2, 2, 1, 'Asalto en paradero', 'Dos sujetos en moto arrancharon celulares.', 'VISIBLE'),
-(3, 3, 2, 'Link de estafa SMS', 'Me llegó un mensaje falso del banco pidiendo clave.', 'VISIBLE'),
-(4, 4, 3, 'Poste a punto de caer', 'Poste inclinado tras choque en Av. Arequipa.', 'EN_EVALUACION'),
-(5, 5, 4, 'Basura acumulada', 'Desmonte dejado en la vereda hace una semana.', 'VISIBLE'),
-(2, 2, 5, 'Corte de luz masivo', 'Toda la cuadra 5 sin fluido eléctrico.', 'EN_EVALUACION');
+INSERT INTO denuncias (usuario_id, alias_id, categoria_id, titulo, descripcion, ubicacion, estado) VALUES
+(2, 2, 1, 'Asalto en paradero', 'Dos sujetos en moto arrancharon celulares.', 'Av. Arenales cdra. 15, Lince', 'VISIBLE'),
+(3, 3, 2, 'Link de estafa SMS', 'Me llegó un mensaje falso del banco pidiendo clave.', 'Plaza San Martín, Cercado de Lima', 'VISIBLE'),
+(4, 4, 3, 'Poste a punto de caer', 'Poste inclinado tras choque en Av. Arequipa.', 'Av. Arequipa cruce con Calle Juan de Arona, San Isidro', 'EN_EVALUACION'),
+(5, 5, 4, 'Basura acumulada', 'Desmonte dejado en la vereda hace una semana.', 'Jr. Huallaga 450, Cercado de Lima', 'VISIBLE'),
+(2, 2, 5, 'Corte de luz masivo', 'Toda la cuadra 5 sin fluido eléctrico.', 'Av. Javier Prado Este cdra. 25, San Borja', 'EN_EVALUACION');
 
 -- 5. EVIDENCIAS
 INSERT INTO evidencias (denuncia_id, url, tipo) VALUES
