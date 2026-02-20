@@ -1,4 +1,4 @@
-package com.example.whisper.controller;
+package com.example.whisper.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
