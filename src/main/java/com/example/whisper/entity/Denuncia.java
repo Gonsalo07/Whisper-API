@@ -35,6 +35,9 @@ public class Denuncia {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "ubicacion")
+    private String ubicacion;
+
     @Column(name = "estado")
     private String estado;
 
