@@ -2,11 +2,11 @@ USE Whisper;
 
 -- 1. USUARIOS
 INSERT INTO usuarios (email, password, dni, rol, estado, firebase_id) VALUES
-('admin@whisper.pe', '$2a$10$7654321', '00000000', 'ADMINISTRADOR', 'ACTIVO', 'uid_admin_001'),
-('carlos.mendoza@gmail.com', 'user1234', '45879632', 'USUARIO', 'ACTIVO', 'uid_carlos_456'),
-('ana.luz@outlook.com', 'ana_pass', '78541236', 'USUARIO', 'ACTIVO', 'uid_ana_789'),
-('sergio.paz@yahoo.com', 'sergio99', '12457896', 'USUARIO', 'ACTIVO', 'uid_sergio_101'),
-('lucia.fer@gmail.com', 'lucia_fe', '32145698', 'USUARIO', 'ACTIVO', 'uid_lucia_202');
+('admin@whisper.pe', '$2a$10$7654321', '00000000', 'ADMINISTRADOR', 'ACTIVO', '1YoU34b2nsMdfnf5QqmAyA5kTeK2'),
+('carlos.mendoza@gmail.com', 'user1234', '45879632', 'USUARIO', 'ACTIVO', '33LdXSj0YOhRybEwNJ7hauYQbaF2'),
+('ana.luz@outlook.com', 'ana_pass', '78541236', 'USUARIO', 'ACTIVO', 'FDieSvANV3Vxf1h5n3ISB3Yu77t1'),
+('sergio.paz@yahoo.com', 'sergio99', '12457896', 'USUARIO', 'ACTIVO', 'cJ8NhGMaNGXetdz5fUb90wWxBsL2'),
+('lucia.fer@gmail.com', 'lucia_fe', '32145698', 'USUARIO', 'ACTIVO', 'wwBKR6scj3YOB2rCy7PwXSiJrdS2');
 
 -- 2. ALIAS PÚBLICOS
 INSERT INTO alias_publicos (usuario_id, alias) VALUES
