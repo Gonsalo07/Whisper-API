@@ -64,13 +64,25 @@ public class AliasPublicoController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        AliasPublico a = aliasService.buscarPorId(id);
-        if (a == null) {
-            return ResponseEntity.notFound().build();
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<?> cambiarEstado(@PathVariable Long id) {
+        try {
+            AliasPublico a = aliasService.buscarPorId(id);
+
+            if (a == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Alias no encontrado");
+            }
+
+            // CAMBIO AQUÍ: Usamos getEstado() y setEstado()
+            // Invertimos el valor actual: si es true pasa a false y viceversa
+            a.setEstado(!a.getEstado());
+
+            aliasService.guardar(a);
+
+            return ResponseEntity.ok("Estado del alias actualizado correctamente");
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cambiar el estado");
         }
-        aliasService.delete(a);
-        return ResponseEntity.ok().build();
     }
 }
