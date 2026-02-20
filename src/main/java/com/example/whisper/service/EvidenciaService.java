@@ -24,7 +24,6 @@ public class EvidenciaService {
     @Autowired
     private IDenunciaRepository repoDenuncia;
 
-    // Lista todas — VISIBLE y OCULTO — para que el admin vea el estado
     public List<Evidencia> listarTodas() {
         return repoEvidencia.findAll();
     }
@@ -35,7 +34,7 @@ public class EvidenciaService {
 
     public Evidencia crearEvidencia(Evidencia evidencia) {
         evidencia.setEstado("VISIBLE");
-        evidencia.setCreadoEn(new Date()); // ← fecha automática
+        evidencia.setCreadoEn(new Date());
         return repoEvidencia.save(evidencia);
     }
 
@@ -49,26 +48,39 @@ public class EvidenciaService {
                 .orElseThrow(() -> new RuntimeException("Denuncia no encontrada"));
 
         try {
-
             String nombreArchivo = UUID.randomUUID() + "_" + file.getOriginalFilename();
-
             Path ruta = Paths.get("uploads/" + nombreArchivo);
             Files.createDirectories(ruta.getParent());
             Files.write(ruta, file.getBytes());
 
             Evidencia evidencia = new Evidencia();
             evidencia.setDenunciaId(denuncia);
-
             evidencia.setUrl("/uploads/" + nombreArchivo);
 
-            evidencia.setTipo(file.getContentType());
+            // ⭐ CORREGIDO: Detectar tipo correcto (IMAGEN, VIDEO, PDF, etc.)
+            String contentType = file.getContentType();
+            String tipo = "DOCUMENTO";
+
+            if (contentType != null) {
+                if (contentType.startsWith("image/")) {
+                    tipo = "IMAGEN";
+                } else if (contentType.startsWith("video/")) {
+                    tipo = "VIDEO";
+                } else if (contentType.equals("application/pdf")) {
+                    tipo = "PDF";
+                } else if (contentType.startsWith("audio/")) {
+                    tipo = "AUDIO";
+                }
+            }
+
+            evidencia.setTipo(tipo);
             evidencia.setCreadoEn(new Date());
             evidencia.setEstado("VISIBLE");
 
             return repoEvidencia.save(evidencia);
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al subir archivo");
+            throw new RuntimeException("Error al subir archivo: " + e.getMessage());
         }
     }
 
@@ -85,7 +97,6 @@ public class EvidenciaService {
         return repoEvidencia.save(evidenciaExistente);
     }
 
-    // "Eliminar" = cambiar estado a OCULTO
     public void ocultarEvidencia(Long id) {
         Evidencia evidencia = repoEvidencia.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evidencia no encontrada"));
