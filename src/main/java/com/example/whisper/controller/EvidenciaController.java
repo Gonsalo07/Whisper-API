@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/evidencia")
@@ -41,6 +44,19 @@ public class EvidenciaController {
         }
     }
 
+    @PostMapping("/upload/{denunciaId}")
+    public ResponseEntity<?> subirEvidencia(
+            @PathVariable Long denunciaId,
+            @RequestParam("file") MultipartFile file) {
+
+        try {
+            Evidencia evidencia = evidenciaService.subirEvidencia(denunciaId, file);
+            return ResponseEntity.status(HttpStatus.CREATED).body(evidencia);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Evidencia> actualizarEvidencia(@PathVariable Long id, @RequestBody Evidencia evidencia) {
         try {
@@ -50,6 +66,11 @@ public class EvidenciaController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/por-denuncia/{id}")
+    public ResponseEntity<List<Evidencia>> obtenerPorDenuncia(@PathVariable Long id) {
+        return ResponseEntity.ok(evidenciaService.obtenerPorDenuncia(id));
     }
 
     // DELETE ahora oculta en lugar de borrar

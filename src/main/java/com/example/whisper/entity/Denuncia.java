@@ -1,6 +1,7 @@
 package com.example.whisper.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +34,10 @@ public class Denuncia {
     @ManyToOne()
     @JoinColumn(name = "categoria_id",  nullable = false)
     private Categoria categoriaId;
+
+    @OneToMany(mappedBy = "denunciaId", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Evidencia> evidencias;
 
     @Column(name = "titulo")
     private String titulo;
