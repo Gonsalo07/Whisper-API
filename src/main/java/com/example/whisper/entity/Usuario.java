@@ -35,7 +35,14 @@ public class Usuario {
 
     @Column(name="estado")
     private String estado;
-
-
+    
+    @Column(name="firebase_id")
+    private String firebase_id;
+    
+    @Transient
+    private String aliasTemporal;
+    
+    public String getAliasTemporal() { return aliasTemporal; }
+    public void setAliasTemporal(String aliasTemporal) { this.aliasTemporal = aliasTemporal; }
 
 }

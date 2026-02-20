@@ -20,6 +20,7 @@ CREATE TABLE usuarios (
     dni CHAR(8) NOT NULL,
     rol VARCHAR(20) NOT NULL DEFAULT 'USUARIO',
     estado VARCHAR(20) DEFAULT 'ACTIVO',
+    firebase_id VARCHAR(200),
     CONSTRAINT chk_rol CHECK (rol IN ('USUARIO', 'ADMINISTRADOR'))
 ) ENGINE=InnoDB;
 

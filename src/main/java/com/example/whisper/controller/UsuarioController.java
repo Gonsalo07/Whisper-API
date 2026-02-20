@@ -1,6 +1,8 @@
 package com.example.whisper.controller;
 
+import com.example.whisper.entity.AliasPublico;
 import com.example.whisper.entity.Usuario;
+import com.example.whisper.service.AliasPublicoService;
 import com.example.whisper.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    
+    @Autowired
+    private AliasPublicoService aliasService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listarTodos() {
@@ -74,9 +79,21 @@ public class UsuarioController {
             if (usuarioService.existePorEmail(usuario.getEmail())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
-            Usuario nuevo = usuarioService.crearUsuario(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+
+            Usuario nuevoUsuario = usuarioService.crearUsuario(usuario);
+
+            if (usuario.getAliasTemporal() != null && !usuario.getAliasTemporal().isEmpty()) {
+                AliasPublico nuevoAlias = new AliasPublico();
+                nuevoAlias.setAlias(usuario.getAliasTemporal());
+                nuevoAlias.setUsuarioId(nuevoUsuario); 
+                nuevoAlias.setCreadoEn(new java.util.Date());
+                
+                aliasService.guardar(nuevoAlias); 
+            }
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
