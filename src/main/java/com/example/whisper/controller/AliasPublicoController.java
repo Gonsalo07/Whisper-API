@@ -87,6 +87,34 @@ public class AliasPublicoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    
+    @PutMapping("/firebase/{firebaseId}")
+    public ResponseEntity<?> actualizarPorFirebase(@PathVariable String firebaseId, @RequestBody Map<String, String> body) {
+        try {
+            String nuevoNombreAlias = body.get("alias");
+            AliasPublico aliasExistente = aliasService.buscarPorFirebaseId(firebaseId);
+
+            if (aliasExistente == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró alias para el Firebase ID proporcionado");
+            }
+
+            aliasExistente.setAlias(nuevoNombreAlias);
+            AliasPublico actualizado = aliasService.guardar(aliasExistente);
+            return ResponseEntity.ok(actualizado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AliasPublico> actualizar(@PathVariable Long id, @RequestBody AliasPublico alias) {
+        AliasPublico actualizado = aliasService.actualizar(id, alias);
+        if (actualizado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(actualizado);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {

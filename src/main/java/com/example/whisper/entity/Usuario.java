@@ -1,4 +1,4 @@
-package com.example.whisper.entity;
+	package com.example.whisper.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,7 +37,7 @@ public class Usuario {
     private String estado;
     
     @Column(name="firebase_id")
-    private String firebase_id;
+    private String firebaseId;
     
     @Transient
     private String aliasTemporal;
