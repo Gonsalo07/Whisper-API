@@ -24,33 +24,33 @@ export const navData = [
   },
   {
     title: 'Denuncias',
-    path: '/products',
+    path: '/denuncia',
     icon: icon('ic-cart'),
   },
   {
-    title: 'Reportes de Falsos',
-    path: '/blog',
-    icon: icon('ic-blog'),
+    title: 'Evidencias',
+    path: '/evidencia',
+    icon: icon('ic-cart'),
   },
   {
     title: 'Alias Publicos',
-    path: '/blog',
+    path: '/alias-publicos',
+    icon: icon('ic-user'),
+  },
+  {
+    title: 'Comentarios',
+    path: '/comentario',
     icon: icon('ic-blog'),
   },
-    {
-  title: 'Comentarios',
-  path: '/comentario',
-  icon: icon('ic-blog'),
+  {
+    title: 'Evidencias Falsas',
+    path: '/evidencia-falsedad',
+    icon: icon('ic-blog'),
   },
-    {
-  title: 'Evidencias Falsas',
-  path: '/evidencia-falsedad',
-  icon: icon('ic-blog'),
-  },
-      {
-  title: 'Reportes Falsos',
-  path: '/reporte-falsedad',
-  icon: icon('ic-blog'),
+  {
+    title: 'Reportes Falsos',
+    path: '/reporte-falsedad',
+    icon: icon('ic-blog'),
   },
   {
     title: 'Ingresar',

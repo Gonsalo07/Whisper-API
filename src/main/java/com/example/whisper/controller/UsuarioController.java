@@ -1,13 +1,18 @@
 package com.example.whisper.controller;
 
+import com.example.whisper.entity.AliasPublico;
 import com.example.whisper.entity.Usuario;
+import com.example.whisper.service.AliasPublicoService;
 import com.example.whisper.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -16,6 +21,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    
+    @Autowired
+    private AliasPublicoService aliasService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listarTodos() {
@@ -24,6 +32,27 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(usuarios);
+    }
+
+    /**
+     * Endpoint para obtener usuarios en formato simplificado para dropdowns
+     * Retorna: [{ id: 1, label: "usuario@email.com" }, ...]
+     */
+    @GetMapping("/dropdown")
+    public ResponseEntity<List<Map<String, Object>>> listarParaDropdown() {
+        List<Usuario> usuarios = usuarioService.listarTodos();
+
+        List<Map<String, Object>> resultado = usuarios.stream()
+                .map(u -> {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("id", u.getId());
+                    item.put("label", u.getEmail());
+                    return item;
+                })
+                .collect(Collectors.toList());
+
+        if (resultado.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(resultado);
     }
 
     @GetMapping("/{id}")
@@ -50,9 +79,21 @@ public class UsuarioController {
             if (usuarioService.existePorEmail(usuario.getEmail())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
-            Usuario nuevo = usuarioService.crearUsuario(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+
+            Usuario nuevoUsuario = usuarioService.crearUsuario(usuario);
+
+            if (usuario.getAliasTemporal() != null && !usuario.getAliasTemporal().isEmpty()) {
+                AliasPublico nuevoAlias = new AliasPublico();
+                nuevoAlias.setAlias(usuario.getAliasTemporal());
+                nuevoAlias.setUsuarioId(nuevoUsuario); 
+                nuevoAlias.setCreadoEn(new java.util.Date());
+                
+                aliasService.guardar(nuevoAlias); 
+            }
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

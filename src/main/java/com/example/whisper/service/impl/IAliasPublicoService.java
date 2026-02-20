@@ -30,6 +30,9 @@ public class IAliasPublicoService implements AliasPublicoService {
     }
 
     @Override
+    public List<AliasPublico> buscarPorAlias(String nombre) { return aliasPublicoRepository.findByAliasContainingIgnoreCase(nombre); }
+
+    @Override
     public void delete(AliasPublico alias) {
         aliasPublicoRepository.delete(alias);
     }

@@ -17,8 +17,10 @@ CREATE TABLE usuarios (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    dni CHAR(8) NOT NULL,
     rol VARCHAR(20) NOT NULL DEFAULT 'USUARIO',
     estado VARCHAR(20) DEFAULT 'ACTIVO',
+    firebase_id VARCHAR(200),
     CONSTRAINT chk_rol CHECK (rol IN ('USUARIO', 'ADMINISTRADOR'))
 ) ENGINE=InnoDB;
 
@@ -55,6 +57,7 @@ CREATE TABLE denuncias (
     categoria_id BIGINT NOT NULL,
     descripcion TEXT NOT NULL,
     ubicacion TEXT NULL,
+    titulo VARCHAR(50) NOT NULL,
     estado VARCHAR(20) DEFAULT 'EN_EVALUACION',
     creada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_denuncia_usuario

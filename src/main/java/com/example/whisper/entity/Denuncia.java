@@ -1,5 +1,6 @@
 package com.example.whisper.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class Denuncia {
     @JoinColumn(name = "categoria_id",  nullable = false)
     private Categoria categoriaId;
 
+    @Column(name = "titulo")
+    private String titulo;
+
     @Column(name = "descripcion")
     private String descripcion;
 
@@ -42,5 +46,6 @@ public class Denuncia {
     private String estado;
 
     @Column(name = "creada_en")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date creadaEn;
 }
