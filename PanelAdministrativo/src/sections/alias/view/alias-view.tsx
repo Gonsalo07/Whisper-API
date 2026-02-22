@@ -4,11 +4,16 @@ import {
     Box, Card, Table, Button, Avatar, Dialog, TableRow, TableBody, TableCell,
     TableHead, Typography, IconButton, TableContainer, TextField, MenuItem,
     DialogTitle, DialogContent, DialogActions, InputAdornment, Popover,
+<<<<<<< Updated upstream
     TablePagination // Importamos el componente de paginación
+=======
+    TablePagination
+>>>>>>> Stashed changes
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 
@@ -16,14 +21,25 @@ export function AliasView() {
     const [aliasList, setAliasList] = useState<any[]>([]);
     const [usuariosList, setUsuariosList] = useState<any[]>([]);
     const [openModal, setOpenModal] = useState(false);
+    
+    // --- ESTADOS PARA EDICIÓN ---
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const [aliasToEdit, setAliasToEdit] = useState({ id: 0, alias: '' });
+
     const [filterName, setFilterName] = useState('');
     const [nuevoAlias, setNuevoAlias] = useState({ alias: '', id_usuario: '' });
 
+<<<<<<< Updated upstream
     // --- ESTADOS PARA PAGINACIÓN ---
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     // --- ESTADOS PARA EL MENÚ DE 3 PUNTITOS ---
+=======
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+>>>>>>> Stashed changes
     const [openMenu, setOpenMenu] = useState<HTMLElement | null>(null);
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -37,7 +53,10 @@ export function AliasView() {
         setSelectedId(null);
     };
 
+<<<<<<< Updated upstream
     // --- FUNCIONES DE PAGINACIÓN ---
+=======
+>>>>>>> Stashed changes
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
@@ -47,7 +66,10 @@ export function AliasView() {
         setPage(0);
     };
 
+<<<<<<< Updated upstream
     // --- FUNCIONES DE API ---
+=======
+>>>>>>> Stashed changes
     const fetchAlias = useCallback(async (nombre: string = '') => {
         try {
             const url = nombre
@@ -69,6 +91,26 @@ export function AliasView() {
         }
     }, []);
 
+<<<<<<< Updated upstream
+=======
+    // --- FUNCIÓN PARA ACTUALIZAR ALIAS ---
+    const handleUpdateAlias = async () => {
+        try {
+            const response = await fetch(`http://localhost:9090/api/alias/${aliasToEdit.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ alias: aliasToEdit.alias }),
+            });
+            if (response.ok) {
+                setOpenEditModal(false);
+                fetchAlias(); 
+            }
+        } catch (error) {
+            console.error('Error al actualizar:', error);
+        }
+    };
+
+>>>>>>> Stashed changes
     const handleToggleEstado = async () => {
         if (!selectedId) return;
         try {
@@ -96,7 +138,11 @@ export function AliasView() {
         const value = event.target.value;
         setFilterName(value);
         fetchAlias(value);
+<<<<<<< Updated upstream
         setPage(0); // Reiniciar a la primera página al filtrar
+=======
+        setPage(0);
+>>>>>>> Stashed changes
     };
 
     const handleGuardar = async () => {
@@ -155,7 +201,10 @@ export function AliasView() {
                 <Scrollbar>
                     <TableContainer sx={{ overflow: 'unset' }}>
                         <Table sx={{ minWidth: 800 }}>
+<<<<<<< Updated upstream
                             {/* Cabecera con fondo neutral */}
+=======
+>>>>>>> Stashed changes
                             <TableHead sx={{ bgcolor: 'background.neutral' }}>
                                 <TableRow>
                                     <TableCell>ID</TableCell>
@@ -167,7 +216,11 @@ export function AliasView() {
                             </TableHead>
                             <TableBody>
                                 {aliasList
+<<<<<<< Updated upstream
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) // Aplicamos paginación
+=======
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+>>>>>>> Stashed changes
                                     .map((row) => (
                                     <TableRow key={row.id} hover>
                                         <TableCell>{row.id}</TableCell>
@@ -182,6 +235,7 @@ export function AliasView() {
                                         <TableCell><strong>{row.alias}</strong></TableCell>
 
                                         <TableCell>
+<<<<<<< Updated upstream
                                             <Box
                                                 sx={{
                                                     height: 24,
@@ -200,6 +254,14 @@ export function AliasView() {
                                             >
                                                 {row.estado ? 'Active' : 'Banned'}
                                             </Box>
+=======
+                                            <Label
+                                                variant="soft"
+                                                color={(row.estado === 'ACTIVE' ? 'success' : 'error')}
+                                            >
+                                                {row.estado === 'ACTIVE' ? 'Active' : 'Banned'}
+                                            </Label>
+>>>>>>> Stashed changes
                                         </TableCell>
 
                                         <TableCell align="right">
@@ -214,7 +276,10 @@ export function AliasView() {
                     </TableContainer>
                 </Scrollbar>
 
+<<<<<<< Updated upstream
                 {/* COMPONENTE DE PAGINACIÓN */}
+=======
+>>>>>>> Stashed changes
                 <TablePagination
                     component="div"
                     count={aliasList.length}
@@ -234,12 +299,34 @@ export function AliasView() {
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                 PaperProps={{ sx: { width: 140, p: 1 } }}
             >
+<<<<<<< Updated upstream
                 <MenuItem onClick={handleToggleEstado} sx={{ color: 'error.main' }}>
                     <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 2 }} />
                     Delete
                 </MenuItem>
             </Popover>
 
+=======
+                {/* BOTÓN EDITAR */}
+                <MenuItem onClick={() => {
+                    const selectedAlias = aliasList.find(a => a.id === selectedId);
+                    setAliasToEdit({ id: selectedId || 0, alias: selectedAlias?.alias || '' });
+                    setOpenEditModal(true);
+                    handleCloseMenu();
+                }}>
+                    <Iconify icon="solar:pen-bold" sx={{ mr: 2 }} />
+                    Edit
+                </MenuItem>
+
+                {/* BOTÓN CAMBIAR ESTADO / DELETE */}
+                <MenuItem onClick={handleToggleEstado} sx={{ color: 'error.main' }}>
+                    <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 2 }} />
+                    Status
+                </MenuItem>
+            </Popover>
+
+            {/* MODAL CREAR */}
+>>>>>>> Stashed changes
             <Dialog open={openModal} onClose={() => setOpenModal(false)} fullWidth maxWidth="sm">
                 <DialogTitle>Nuevo Alias</DialogTitle>
                 <DialogContent dividers>
@@ -268,6 +355,24 @@ export function AliasView() {
                 <DialogActions>
                     <Button onClick={() => setOpenModal(false)}>Cancelar</Button>
                     <Button variant="contained" onClick={handleGuardar}>Guardar</Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* MODAL EDITAR */}
+            <Dialog open={openEditModal} onClose={() => setOpenEditModal(false)} fullWidth maxWidth="xs">
+                <DialogTitle>Editar Alias</DialogTitle>
+                <DialogContent dividers>
+                    <TextField
+                        fullWidth
+                        label="Nuevo nombre del Alias"
+                        value={aliasToEdit.alias}
+                        onChange={(e) => setAliasToEdit({ ...aliasToEdit, alias: e.target.value })}
+                        sx={{ mt: 1 }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenEditModal(false)}>Cancelar</Button>
+                    <Button variant="contained" onClick={handleUpdateAlias}>Actualizar</Button>
                 </DialogActions>
             </Dialog>
         </DashboardContent>

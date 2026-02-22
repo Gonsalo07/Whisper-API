@@ -21,6 +21,7 @@ public class IAliasPublicoService implements AliasPublicoService {
 
     @Override
     public AliasPublico guardar(AliasPublico alias) {
+        alias.setEstado("ACTIVE");
         return aliasPublicoRepository.save(alias);
     }
 
@@ -33,8 +34,12 @@ public class IAliasPublicoService implements AliasPublicoService {
     public List<AliasPublico> buscarPorAlias(String nombre) { return aliasPublicoRepository.findByAliasContainingIgnoreCase(nombre); }
 
     @Override
-    public void delete(AliasPublico alias) {
-        aliasPublicoRepository.delete(alias);
+    public void cambiarEstado(Long id, String nuevoEstado) {
+        AliasPublico alias = aliasPublicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Alias no encontrado"));
+
+        alias.setEstado(nuevoEstado);
+        aliasPublicoRepository.save(alias);
     }
 
 }

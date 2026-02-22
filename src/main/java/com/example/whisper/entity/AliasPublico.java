@@ -30,6 +30,11 @@ public class AliasPublico {
     @Column(name = "creado_en")
     private Date creadoEn;
 
+<<<<<<< Updated upstream
     @Column(name = "estado", nullable = false)
     private Boolean estado = true;
+=======
+    @Column(name = "estado")
+    private String estado;
+>>>>>>> Stashed changes
 }

@@ -85,4 +85,23 @@ public class AliasPublicoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cambiar el estado");
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AliasPublico> actualizar(@PathVariable Long id, @RequestBody AliasPublico alias) {
+        AliasPublico actualizado = aliasService.actualizar(id, alias);
+        if (actualizado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desactivar(@PathVariable Long id) {
+        // Por defecto, al "eliminar" desde la tabla, lo pasamos a INACTIVE
+        aliasService.cambiarEstado(id, "INACTIVE");
+        return ResponseEntity.noContent().build();
+    }
+>>>>>>> Stashed changes
 }
