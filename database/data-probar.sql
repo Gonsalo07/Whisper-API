@@ -17,12 +17,22 @@ INSERT INTO alias_publicos (usuario_id, alias) VALUES
 (5, 'LuciaInforma');
 
 -- 3. CATEGORÍAS
-INSERT INTO categorias (nombre, descripcion) VALUES
-('Seguridad', 'Robos, asaltos y actividad sospechosa.'),
-('Estafas', 'Fraudes digitales y engaños en ventas.'),
-('Infraestructura', 'Baches, falta de luz y semáforos.'),
-('Medio Ambiente', 'Acumulación de basura y ruidos.'),
-('Servicios', 'Problemas con agua, luz o internet.');
+INSERT INTO categorias (nombre) VALUES
+('Corrupción'),
+('Abuso de autoridad'),
+('Acoso laboral'),
+('Acoso sexual'),
+('Discriminación'),
+('Fraude / Estafa'),
+('Mal uso de recursos'),
+('Violencia'),
+('Extorsión'),
+('Irregularidades administrativas'),
+('Conflictos internos'),
+('Delitos informáticos'),
+('Contaminación ambiental'),
+('Seguridad ciudadana'),
+('Otro');
 
 -- 4. DENUNCIAS
 INSERT INTO denuncias (usuario_id, alias_id, categoria_id, titulo, descripcion, ubicacion, estado) VALUES
