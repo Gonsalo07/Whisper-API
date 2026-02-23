@@ -34,10 +34,6 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
-    /**
-     * Endpoint para obtener usuarios en formato simplificado para dropdowns
-     * Retorna: [{ id: 1, label: "usuario@email.com" }, ...]
-     */
     @GetMapping("/dropdown")
     public ResponseEntity<List<Map<String, Object>>> listarParaDropdown() {
         List<Usuario> usuarios = usuarioService.listarTodos();

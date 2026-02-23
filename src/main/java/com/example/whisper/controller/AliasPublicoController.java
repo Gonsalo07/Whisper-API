@@ -34,18 +34,12 @@ public class AliasPublicoController {
             lista = aliasService.listar();
         }
 
-        // Si la lista es null o vacía, devolvemos 204 (No Content)
-        // Esto es lo que el Frontend ya está preparado para recibir
         if (lista == null || lista.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(lista);
     }
 
-    /**
-     * Endpoint para obtener alias en formato simplificado para dropdowns
-     * Retorna: [{ id: 1, label: "NombreAlias" }, ...]
-     */
     @GetMapping("/dropdown")
     public ResponseEntity<List<Map<String, Object>>> listarParaDropdown() {
         List<AliasPublico> aliases = aliasService.listar();
@@ -66,7 +60,6 @@ public class AliasPublicoController {
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody AliasPublico alias) {
         try {
-            // Validación robusta del usuario
             if (alias.getUsuarioId() == null || alias.getUsuarioId().getId() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID de usuario no proporcionado");
             }

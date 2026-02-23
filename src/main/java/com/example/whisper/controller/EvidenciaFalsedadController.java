@@ -52,7 +52,6 @@ public class EvidenciaFalsedadController {
         }
     }
 
-    // DELETE ahora oculta en lugar de borrar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> ocultarEvidencia(@PathVariable Long id) {
         try {

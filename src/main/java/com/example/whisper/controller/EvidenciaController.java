@@ -73,7 +73,6 @@ public class EvidenciaController {
         return ResponseEntity.ok(evidenciaService.obtenerPorDenuncia(id));
     }
 
-    // DELETE ahora oculta en lugar de borrar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> ocultarEvidencia(@PathVariable Long id) {
         try {
