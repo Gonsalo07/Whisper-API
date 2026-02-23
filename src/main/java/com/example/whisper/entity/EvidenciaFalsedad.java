@@ -33,7 +33,7 @@ public class EvidenciaFalsedad {
 
     @Column(name = "creada_en")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime creadaEn;  // ← LocalDateTime + nombre creadaEn
+    private LocalDateTime creadaEn;
 
     @Column(name = "estado")
     private String estado;

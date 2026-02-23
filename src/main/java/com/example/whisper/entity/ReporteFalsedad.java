@@ -34,7 +34,7 @@ public class ReporteFalsedad {
 
     @Column(name = "creado_en")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime creadoEn;  // ← LocalDateTime en lugar de LocalDate
+    private LocalDateTime creadoEn;
 
     @Column(name = "estado")
     private String estado;

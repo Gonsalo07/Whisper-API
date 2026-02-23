@@ -1,5 +1,6 @@
 package com.example.whisper.service;
 
+import com.example.whisper.dto.DenunciaDTO;
 import com.example.whisper.entity.Denuncia;
 import com.example.whisper.repository.IDenunciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,22 @@ public class DenunciaService {
     // Lista todas las denuncias
     public List<Denuncia> listarTodas() {
         return repoDenuncia.findAll();
+    }
+
+    public List<DenunciaDTO> listarPorUsuario(Long usuarioId) {
+
+        List<Denuncia> denuncias = repoDenuncia.findByUsuarioId_Id(usuarioId);
+
+        return denuncias.stream().map(d -> new DenunciaDTO(
+                d.getId(),
+                d.getTitulo(),
+                d.getDescripcion(),
+                d.getEstado(),
+                d.getCreadaEn(),
+                d.getUbicacion(),
+                d.getCategoriaId().getNombre(),
+                d.getAliasId().getAlias()
+        )).toList();
     }
 
     public Denuncia obtenerPorId(Long id) {

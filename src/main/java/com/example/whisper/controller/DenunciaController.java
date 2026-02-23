@@ -1,5 +1,6 @@
 package com.example.whisper.controller;
 
+import com.example.whisper.dto.DenunciaDTO;
 import com.example.whisper.entity.Denuncia;
 import com.example.whisper.service.DenunciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,6 @@ public class DenunciaController {
     @Autowired
     private DenunciaService denunciaService;
 
-    /**
-     * Endpoint para obtener denuncias en formato simplificado para dropdowns
-     * Retorna: [{ id: 1, label: "Título de la denuncia" }, ...]
-     */
     @GetMapping("/dropdown")
     public ResponseEntity<List<Map<String, Object>>> listarParaDropdown() {
         List<Denuncia> denuncias = denunciaService.listarTodas();
@@ -58,6 +55,16 @@ public class DenunciaController {
         return ResponseEntity.ok(denuncias);
     }
 
+    @GetMapping("/user/{usuarioId}")
+    public ResponseEntity<List<DenunciaDTO>> listarPorUsuario(@PathVariable Long usuarioId) {
+
+        List<DenunciaDTO> denuncias = denunciaService.listarPorUsuario(usuarioId);
+
+        if (denuncias.isEmpty()) return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(denuncias);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Denuncia> obtenerPorId(@PathVariable Long id) {
         Denuncia denuncia = denunciaService.obtenerPorId(id);
@@ -86,10 +93,6 @@ public class DenunciaController {
         }
     }
 
-    /**
-     * Endpoint para cambiar solo el estado de una denuncia
-     * Body: { "estado": "CONSISTENTE" }
-     */
     @PatchMapping("/{id}/estado")
     public ResponseEntity<Denuncia> cambiarEstado(@PathVariable Long id, @RequestBody Map<String, String> body) {
         try {

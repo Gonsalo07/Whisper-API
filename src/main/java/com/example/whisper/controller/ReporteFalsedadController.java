@@ -52,7 +52,6 @@ public class ReporteFalsedadController {
         }
     }
 
-    // DELETE ahora oculta en lugar de borrar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> ocultarReporte(@PathVariable Long id) {
         try {

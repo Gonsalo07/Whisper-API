@@ -27,10 +27,6 @@ public class CategoriaController {
         else return ResponseEntity.ok().body(listaCategoria);
     }
 
-    /**
-     * Endpoint para obtener categorías en formato simplificado para dropdowns
-     * Retorna: [{ id: 1, label: "Nombre Categoría" }, ...]
-     */
     @GetMapping("/dropdown")
     public ResponseEntity<List<Map<String, Object>>> listarParaDropdown() {
         List<Categoria> categorias = categoriaService.listar();
